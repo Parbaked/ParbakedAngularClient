@@ -1,0 +1,94 @@
+{
+  "title": "Edit Contact",
+  "sections": [
+    {
+      "sectionTitle": "Personal Information",
+      "rows": [
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "first",
+                "label": "First",
+                "inputType": "text"
+              }
+            },
+            {
+              "control": {
+                "dataField": "last",
+                "label": "Last",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "email",
+                "label": "Email",
+                "inputType": "text"
+              }
+            },
+            {
+              "control": {
+                "dataField": "phone",
+                "label": "Phone",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "address",
+                "label": "Address",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "city",
+                "label": "City",
+                "inputType": "text"
+              }
+            },
+            {
+              "control": {
+                "dataField": "state",
+                "label": "State",
+                "inputType": "text"
+              }
+            },
+            {
+              "control": {
+                "dataField": "zip",
+                "label": "Zip",
+                "inputType": "text"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "record": {
+    "id": 1,
+    "first": "NOT Bob",
+    "last": "Smith",
+    "phone": "123-456-7890",
+    "email": "bob@example.com",
+    "address": "123 Main St",
+    "city": "Omaha",
+    "state": "NE",
+    "zip": "12345"
+  },
+  "actions": [{ "text": "Store" }, { "text": "Delete" }]
+}

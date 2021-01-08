@@ -1,0 +1,36 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+    <label>{{ title }}</label>
+    <hr />
+    <nav *ngIf="links">
+      <a *ngFor="let link of links" href="{{ link.route }}">{{ link.title }}</a>
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <header>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        <label>{{ title }}</label>
+        <nav>
+          <a *ngFor="let link of links" href="{{ link.route }}">{{
+            link.title
+          }}</a>
+          <a *ngIf="showDebug" (click)="disableDebug()">Hide Debug</a>
+          <a *ngIf="!showDebug" (click)="enableDebug()">Debug</a>
+        </nav>
+      </header>
+    </mat-toolbar>
+    <section>
+      <div *ngIf="showDebug">
+        <div>IS PRODUCTION {{ production }}</div>
+        <div>UID = {{ uid }}</div>
+        <div>Name = {{ name }}</div>
+        <div>Email = {{ email }}</div>
+        <div>Token = {{ token }}</div>
+      </div>
+
+      <router-outlet></router-outlet>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

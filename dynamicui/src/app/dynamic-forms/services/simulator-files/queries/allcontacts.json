@@ -1,0 +1,9 @@
+{
+  "title": "Contacts",
+  "columnHeaders": ["id", "name", "city"],
+  "selectItemCommand": "contact",
+  "rows": [
+    { "id": "1", "name": "NOT bob 2", "city": "Omaha" },
+    { "id": "2", "name": "mary", "city": "Omaha" }
+  ]
+}
