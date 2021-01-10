@@ -1,0 +1,9 @@
+{
+  "title": "Emails",
+  "columnHeaders": ["id", "to", "from"],
+  "selectItemCommand": null,
+  "rows": [
+    { "id": "1", "to": "to@example.com", "from": "from@example.com" },
+    { "id": "2", "to": "to@example.com", "from": "from@example.com" }
+  ]
+}

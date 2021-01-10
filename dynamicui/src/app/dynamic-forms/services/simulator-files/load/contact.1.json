@@ -3,6 +3,7 @@
   "sections": [
     {
       "sectionTitle": "Personal Information",
+      "sectionType": "fields",
       "rows": [
         {
           "columns": [
@@ -77,6 +78,12 @@
           ]
         }
       ]
+    },
+    {
+      "sectionTitle": null,
+      "sectionType": "links",
+      "sectionData": "contactLinks",
+      "sectionColumns": ["id", "first", "last"]
     }
   ],
   "record": {
@@ -88,7 +95,11 @@
     "address": "123 Main St",
     "city": "Omaha",
     "state": "NE",
-    "zip": "12345"
+    "zip": "12345",
+    "contactLinks": [
+      { "id": 2, "first": "Mary", "last": "Smith", "type": "spouse" },
+      { "id": 3, "first": "Joe", "last": "Smith", "type": "child" }
+    ]
   },
   "actions": [{ "text": "Store" }, { "text": "Delete" }]
 }
