@@ -27,22 +27,15 @@
     <mat-card-content *ngIf="section.sectionType == 'links'">
       <table
         mat-table
-        [dataSource]="data.record.contactLinks"
+        [dataSource]="data.record[section.sectionData]"
         class="full-width-table"
       >
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>Id</th>
-          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="first">
-          <th mat-header-cell *matHeaderCellDef>First</th>
-          <td mat-cell *matCellDef="let row">{{ row.first }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="last">
-          <th mat-header-cell *matHeaderCellDef>Last</th>
-          <td mat-cell *matCellDef="let row">{{ row.last }}</td>
+        <ng-container
+          *ngFor="let c of section.sectionColumns"
+          matColumnDef="{{ c }}"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ c }}</th>
+          <td mat-cell *matCellDef="let row">{{ row[c] }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="section.sectionColumns"></tr>
@@ -51,7 +44,10 @@
       </table>
 
       <button mat-icon-button color="accent" aria-label="Add to table">
-        <mat-icon>library_add</mat-icon>
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" aria-label="Add to table">
+        <mat-icon>link</mat-icon>
       </button>
     </mat-card-content>
   </mat-card>
