@@ -80,7 +80,7 @@
       ]
     },
     {
-      "sectionTitle": null,
+      "sectionTitle": "Related Contacts",
       "sectionType": "links",
       "sectionData": "contactLinks",
       "sectionColumns": ["id", "first", "last"]
