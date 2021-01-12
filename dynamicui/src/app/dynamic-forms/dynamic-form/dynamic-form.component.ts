@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { table } from 'console';
 import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { CommanderService } from '../services/commander.service';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -19,7 +20,8 @@ export class DynamicFormComponent implements OnInit {
   provider: string;
   form = this.fb.group({});
 
-  rows: FormArray;
+  rows: any;
+  @ViewChild(MatTable) matTable: MatTable<any>;
 
   dataFieldName = 'data.record.first';
 
@@ -50,7 +52,7 @@ export class DynamicFormComponent implements OnInit {
 
     this.form = this.fb.group(this.data.record);
 
-    this.rows = this.fb.array(this.data.record['contactLinks']);
+    this.rows = this.data.record['contactLinks'];
 
     Object.keys(this.data.record).forEach((key, index) => {
       console.log('adding field ' + key);
@@ -77,25 +79,22 @@ export class DynamicFormComponent implements OnInit {
   }
 
   async unlink(row: any, tableData: any) {
-    console.log(row);
-    console.log(tableData);
     let index = 0;
     for (index = 0; index < tableData.length; index++) {
       if (tableData[index] == row) {
         break;
       }
     }
-    if (index > 0 && index < tableData.length) {
+    if (index >= 0 && index < tableData.length) {
       tableData.splice(index, 1);
     }
-    this.cdRef.detectChanges();
-    this.cdRef.markForCheck();
+    this.matTable.renderRows();
   }
 
-  async addLink(tableData: any) {
-    tableData.push({ id: 3, first: 'Joe', last: 'Smith', type: 'child' });
-
-    this.cdRef.detectChanges();
-    this.cdRef.markForCheck();
+  async addLink(tableData: any, addTemplate: any) {
+    const newRow = {};
+    Object.assign(newRow, addTemplate);
+    tableData.push(newRow);
+    this.matTable.renderRows();
   }
 }

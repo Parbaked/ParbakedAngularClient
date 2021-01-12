@@ -83,7 +83,14 @@
       "sectionTitle": "Related Contacts",
       "sectionType": "links",
       "sectionData": "contactLinks",
-      "sectionColumns": ["id", "first", "last", "actions"]
+      "sectionColumns": ["id", "first", "last", "actions"],
+      "sectionAllowRowDelete": true,
+      "sectionNewRowTemplate": {
+        "id": null,
+        "first": "",
+        "last": "",
+        "type": ""
+      }
     }
   ],
   "record": {
