@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { table } from 'console';
 import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { CommanderService } from '../services/commander.service';
 
@@ -18,6 +19,8 @@ export class DynamicFormComponent implements OnInit {
   provider: string;
   form = this.fb.group({});
 
+  rows: FormArray;
+
   dataFieldName = 'data.record.first';
 
   constructor(
@@ -26,6 +29,10 @@ export class DynamicFormComponent implements OnInit {
     private fb: FormBuilder,
     private commander: CommanderService
   ) {}
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit(): void {}
 
@@ -42,6 +49,8 @@ export class DynamicFormComponent implements OnInit {
     }
 
     this.form = this.fb.group(this.data.record);
+
+    this.rows = this.fb.array(this.data.record['contactLinks']);
 
     Object.keys(this.data.record).forEach((key, index) => {
       console.log('adding field ' + key);
@@ -65,5 +74,28 @@ export class DynamicFormComponent implements OnInit {
       this.entity,
       this.data.record
     );
+  }
+
+  async unlink(row: any, tableData: any) {
+    console.log(row);
+    console.log(tableData);
+    let index = 0;
+    for (index = 0; index < tableData.length; index++) {
+      if (tableData[index] == row) {
+        break;
+      }
+    }
+    if (index > 0 && index < tableData.length) {
+      tableData.splice(index, 1);
+    }
+    this.cdRef.detectChanges();
+    this.cdRef.markForCheck();
+  }
+
+  async addLink(tableData: any) {
+    tableData.push({ id: 3, first: 'Joe', last: 'Smith', type: 'child' });
+
+    this.cdRef.detectChanges();
+    this.cdRef.markForCheck();
   }
 }

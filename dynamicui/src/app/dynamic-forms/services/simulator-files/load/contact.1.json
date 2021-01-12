@@ -83,7 +83,7 @@
       "sectionTitle": "Related Contacts",
       "sectionType": "links",
       "sectionData": "contactLinks",
-      "sectionColumns": ["id", "first", "last"]
+      "sectionColumns": ["id", "first", "last", "actions"]
     }
   ],
   "record": {

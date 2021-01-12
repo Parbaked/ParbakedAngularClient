@@ -34,8 +34,23 @@
           *ngFor="let c of section.sectionColumns"
           matColumnDef="{{ c }}"
         >
-          <th mat-header-cell *matHeaderCellDef>{{ c }}</th>
-          <td mat-cell *matCellDef="let row">{{ row[c] }}</td>
+          <th mat-header-cell *matHeaderCellDef>
+            <span *ngIf="c != 'actions'">{{ c }}</span>
+            <span *ngIf="c == 'actions'"></span>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="c != 'actions'">{{ row[c] }}</span>
+            <span *ngIf="c == 'actions'">
+              <button
+                (click)="unlink(row, data.record[section.sectionData])"
+                mat-icon-button
+                color="accent"
+                aria-label="Remove"
+              >
+                <mat-icon>link_off</mat-icon>
+              </button>
+            </span>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="section.sectionColumns"></tr>
@@ -43,7 +58,12 @@
         <tr mat-row *matRowDef="let row; columns: section.sectionColumns"></tr>
       </table>
 
-      <button mat-icon-button color="accent" aria-label="Add to table">
+      <button
+        (click)="addLink(data.record[section.sectionData])"
+        mat-icon-button
+        color="accent"
+        aria-label="Add to table"
+      >
         <mat-icon>add</mat-icon>
       </button>
       <button mat-icon-button color="accent" aria-label="Add to table">
