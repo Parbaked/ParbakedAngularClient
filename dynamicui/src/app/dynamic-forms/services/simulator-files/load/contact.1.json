@@ -83,18 +83,36 @@
       "sectionTitle": "Related Contacts",
       "sectionType": "links",
       "sectionData": "contactLinks",
-      "sectionColumns": [
-        "id", 
-        "first", 
-        "last", 
-        "actions"],
+      "sectionColumns": ["id", "first", "last", "actions"],
       "sectionAllowRowDelete": true,
       "sectionNewRowTemplate": {
         "id": null,
         "first": "",
         "last": "",
         "type": ""
-      }
+      },
+      "sectionColumnDefintions": [
+        {
+          "dataField": "id",
+          "label": "Id",
+          "inputType": "text"
+        },
+        {
+          "dataField": "first",
+          "label": "First",
+          "inputType": "text"
+        },
+        {
+          "dataField": "last",
+          "label": "Last",
+          "inputType": "text"
+        },
+        {
+          "dataField": "actions",
+          "label": "actions",
+          "inputType": "actions"
+        }
+      ]
     }
   ],
   "record": {
