@@ -21,6 +21,7 @@ export class DynamicFormComponent implements OnInit {
   provider: string;
   form = this.fb.group({});
   rows: FormArray = this.fb.array([]);
+  loaded = false;
 
   tableData = new BehaviorSubject<AbstractControl[]>([]);
 
@@ -52,8 +53,7 @@ export class DynamicFormComponent implements OnInit {
       console.log('UNABLE TO LOAD DATA');
       return;
     }
-    this.form = this.fb.group(this.data.record);
-
+    
     //this.rows = this.data.record['contactLinks'];
     for (const section of this.data.sections) {
       if (section.sectionType == 'links') {
@@ -64,14 +64,15 @@ export class DynamicFormComponent implements OnInit {
       }
     }
 
+    this.form = this.fb.group(this.data.record);
     this.form.addControl('rows', this.rows);
     this.updateTable();
+    this.loaded = true;
   }
 
   addRow(record: any) {
     const row = this.fb.group(record);
     this.rows.push(row);
-    //this.updateTable();
   }
 
   updateTable() {

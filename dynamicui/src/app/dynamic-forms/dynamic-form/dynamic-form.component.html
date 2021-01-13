@@ -1,4 +1,4 @@
-<div *ngIf="data" [formGroup]="form">
+<div *ngIf="loaded" [formGroup]="form">
   <h1>{{ data.title }}</h1>
 
   <mat-card class="form-card" *ngFor="let section of data.sections">
@@ -44,10 +44,21 @@
             *matCellDef="let row; let index = index"
             [formGroupName]="index"
           >
-            <mat-form-field floatLabel="never">
-              <input matInput placeholder="" formControlName="{{ c }}" />
-            </mat-form-field>
-
+            <span *ngIf="c != 'actions'">
+              <mat-form-field floatLabel="never">
+                <input matInput placeholder="" formControlName="{{ c }}" />
+              </mat-form-field>
+            </span>
+            <span *ngIf="c == 'actions'">
+                            <button
+                (click)="unlink(row, data.record[section.sectionData])"
+                mat-icon-button
+                color="accent"
+                aria-label="Remove"
+              >
+                <mat-icon>link_off</mat-icon>
+              </button>
+            </span>
             <!-- <span *ngIf="c != 'actions'">
               <span *ngIf="row.editMode == true">
                 <mat-form-field floatLabel="never">
