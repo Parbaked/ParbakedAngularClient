@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { table } from 'console';
 import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { CommanderService } from '../services/commander.service';
 import { MatTable } from '@angular/material/table';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -19,8 +20,10 @@ export class DynamicFormComponent implements OnInit {
   id: string;
   provider: string;
   form = this.fb.group({});
+  rows: FormArray = this.fb.array([]);
 
-  rows: any;
+  tableData = new BehaviorSubject<AbstractControl[]>([]);
+
   @ViewChild(MatTable) matTable: MatTable<any>;
 
   dataFieldName = 'data.record.first';
@@ -49,14 +52,30 @@ export class DynamicFormComponent implements OnInit {
       console.log('UNABLE TO LOAD DATA');
       return;
     }
-
     this.form = this.fb.group(this.data.record);
 
-    this.rows = this.data.record['contactLinks'];
+    //this.rows = this.data.record['contactLinks'];
+    for (const section of this.data.sections) {
+      if (section.sectionType == 'links') {
+        const linkRows = this.data.record[section.sectionData];
+        linkRows.forEach((element) => {
+          this.addRow(element);
+        });
+      }
+    }
 
-    Object.keys(this.data.record).forEach((key, index) => {
-      console.log('adding field ' + key);
-    });
+    this.form.addControl('rows', this.rows);
+    this.updateTable();
+  }
+
+  addRow(record: any) {
+    const row = this.fb.group(record);
+    this.rows.push(row);
+    //this.updateTable();
+  }
+
+  updateTable() {
+    this.tableData.next(this.rows.controls);
   }
 
   async action(text: string) {

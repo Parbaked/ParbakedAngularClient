@@ -104,7 +104,12 @@
     "state": "NE",
     "zip": "12345",
     "contactLinks": [
-      { "id": 2, "first": "Mary", "last": "Smith", "type": "spouse" },
+      {
+        "id": 2,
+        "first": "Mary",
+        "last": "Smith",
+        "type": "spouse"
+      },
       { "id": 3, "first": "Joe", "last": "Smith", "type": "child" }
     ]
   },
