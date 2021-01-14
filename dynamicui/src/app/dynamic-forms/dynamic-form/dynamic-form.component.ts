@@ -73,28 +73,62 @@ export class DynamicFormComponent implements OnInit {
     this.loaded = true;
   }
 
+  //rowNumber = 0;
+
   addRow(record: any) {
     const row = this.fb.group(record);
     this.rows.push(row);
+
+    //record.rowNumber = this.rowNumber;
+    //this.rowNumber++;
+
+    //record.rowNumber = this.rows.length - 1;
+
+    // var array = [];
+    // let index = 0;
+
+    // if (this.rows.length > 0) {
+    //   for (let index in this.rows.value) {
+    //     var item = this.rows.value[index];
+    //     item.rowNumber = parseInt(index);
+    //     array.push(item);
+    //   }
+    //   record.rowNumber = array.length;
+    // } else {
+    //   record.rowNumber = 0;
+    // }
+    // array.push(record);
+    // this.rows.clear();
+
+    // for (let item of array) {
+    //   const row = this.fb.group(item);
+    //   this.rows.push(row);
+    // }
+
+    // for (let index in this.rows.value) {
+    //   var item = this.rows.value[index];
+    //   console.log(item);
+    // }
   }
 
   removeRow(record: any) {}
 
   updateTable() {
-    if (this.rows != null) {
-      for (let index in this.rows.value) {
-        var item = this.rows.value[index];
-        if (item != null) {
-          item.rowNumber = index;
-        }
-      }
+    for (let index in this.rows.value) {
+      var item = this.rows.value[index];
+      item.rowNumber = parseInt(index);
+    }
 
-      this.tableData.next(this.rows.controls);
+    for (let index in this.rows.value) {
+      var item = this.rows.value[index];
+      console.log(item);
     }
 
     if (this.matTable != null) {
       this.matTable.renderRows();
     }
+
+    this.tableData.next(this.rows.controls);
   }
 
   async action(text: string) {
@@ -128,7 +162,17 @@ export class DynamicFormComponent implements OnInit {
   }
 
   async unlink(row: any, tableData: any) {
-    this.rows.removeAt(row.value.rowNumber);
+    for (let index in this.rows.value) {
+      var item = this.rows.value[index];
+      console.log(item);
+    }
+
+    if (row.value.rowNumber != undefined) {
+      this.rows.removeAt(row.value.rowNumber);
+    } else {
+      this.rows.removeAt(this.rows.length - 1);
+    }
+
     this.updateTable();
   }
 
