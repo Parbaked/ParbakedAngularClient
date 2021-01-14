@@ -54,22 +54,24 @@ export class DynamicFormComponent implements OnInit {
       return;
     }
 
-    //this.rows = this.data.record['contactLinks'];
+    this.form = this.fb.group(this.data.record);
+
     for (const section of this.data.sections) {
       if (section.sectionType == 'links') {
-        const linkRows = this.data.record[section.sectionData];
+        var linkRowsName = 'linkRows_' + section.sectionData;
+        this[linkRowsName] = this.fb.array([]);
+        const linkRowsData = this.data.record[section.sectionData];
         let index = 0;
-        linkRows.forEach((element) => {
+        linkRowsData.forEach((element) => {
           element.rowNumber = index;
-          this.addRow(element);
+          this.addRow(this[linkRowsName], element);
           index++;
         });
+
+        this.form.addControl(linkRowsName, this[linkRowsName]);
+        this.updateTable(this[linkRowsName]);
       }
     }
-
-    this.form = this.fb.group(this.data.record);
-    this.form.addControl('rows', this.rows);
-    this.updateTable();
     this.loaded = true;
   }
 
@@ -105,19 +107,19 @@ export class DynamicFormComponent implements OnInit {
     );
   }
 
-  addRow(record: any) {
+  addRow(rows: FormArray, record: any) {
     const row = this.fb.group(record);
-    this.rows.push(row);
+    rows.push(row);
   }
 
-  updateTable() {
-    for (let index in this.rows.value) {
-      var item = this.rows.value[index];
+  updateTable(rows: FormArray) {
+    for (let index in rows.value) {
+      var item = rows.value[index];
       item.rowNumber = parseInt(index);
     }
 
-    for (let index in this.rows.value) {
-      var item = this.rows.value[index];
+    for (let index in rows.value) {
+      var item = rows.value[index];
       console.log(item);
     }
 
@@ -125,28 +127,31 @@ export class DynamicFormComponent implements OnInit {
       this.matTable.renderRows();
     }
 
-    this.tableData.next(this.rows.controls);
+    this.tableData.next(rows.controls);
   }
 
-  async unlink(row: any, tableData: any) {
-    for (let index in this.rows.value) {
-      var item = this.rows.value[index];
+  async unlink(rowsName: string, row: any) {
+    let rows = this[rowsName] as FormArray;
+
+    for (let index in rows.value) {
+      var item = rows.value[index];
       console.log(item);
     }
 
     if (row.value.rowNumber != undefined) {
-      this.rows.removeAt(row.value.rowNumber);
+      rows.removeAt(row.value.rowNumber);
     } else {
-      this.rows.removeAt(this.rows.length - 1);
+      rows.removeAt(rows.length - 1);
     }
 
-    this.updateTable();
+    this.updateTable(rows);
   }
 
-  async addLink(tableData: any, addTemplate: any) {
+  async addLink(rowsName: string, addTemplate) {
+    let rows = this[rowsName] as FormArray;
     const newRow = {};
     Object.assign(newRow, addTemplate);
-    this.addRow(newRow);
-    this.updateTable();
+    this.addRow(rows, newRow);
+    this.updateTable(rows);
   }
 }

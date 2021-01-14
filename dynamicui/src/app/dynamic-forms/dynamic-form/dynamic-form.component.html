@@ -28,7 +28,7 @@
       <table
         mat-table
         [dataSource]="tableData"
-        formArrayName="rows"
+        formArrayName="{{ 'linkRows_' + section.sectionData }}"
         class="full-width-table"
       >
         <ng-container
@@ -55,7 +55,7 @@
             </span>
             <span *ngIf="c.dataField == 'actions'">
               <button
-                (click)="unlink(row, data.record[section.sectionData])"
+                (click)="unlink('linkRows_' + section.sectionData, row)"
                 mat-icon-button
                 color="accent"
                 aria-label="Remove"
@@ -63,26 +63,6 @@
                 <mat-icon>link_off</mat-icon>
               </button>
             </span>
-            <!-- <span *ngIf="c != 'actions'">
-              <span *ngIf="row.editMode == true">
-                <mat-form-field floatLabel="never">
-                  <input matInput placeholder="" [(ngModel)]="row[c]" />
-                </mat-form-field>
-              </span>
-              <span *ngIf="row.editMode != true">
-                {{ row[c] + 'edit=' + row.editMode + ' ' + row.value.id }}
-              </span>
-            </span>
-            <span *ngIf="c == 'actions'">
-              <button
-                (click)="unlink(row, data.record[section.sectionData])"
-                mat-icon-button
-                color="accent"
-                aria-label="Remove"
-              >
-                <mat-icon>link_off</mat-icon>
-              </button>
-            </span> -->
           </td>
         </ng-container>
 
@@ -94,7 +74,7 @@
       <button
         (click)="
           addLink(
-            data.record[section.sectionData],
+            'linkRows_' + section.sectionData,
             section.sectionNewRowTemplate
           )
         "
