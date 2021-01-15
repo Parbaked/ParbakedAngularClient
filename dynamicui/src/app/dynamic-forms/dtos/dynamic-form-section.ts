@@ -6,4 +6,8 @@ export interface DynamicFormSection {
   sectionType: string;
   sectionData: string;
   bindable: any;
+
+  sectionAllowRowDelete: boolean;
+  sectionNewRowTemplate: any;
+  sectionLinkSearchCommand: string;
 }

@@ -113,6 +113,22 @@
           "inputType": "actions"
         }
       ]
+    },
+    {
+      "sectionTitle": "Messages",
+      "sectionType": "links",
+      "sectionData": "messages",
+      "sectionColumns": ["subject"],
+      "sectionAllowRowDelete": true,
+      "sectionNewRowTemplate": null,
+      "sectionLinkSearchCommand": null,
+      "sectionColumnDefintions": [
+        {
+          "dataField": "subject",
+          "label": "Subject",
+          "inputType": "label"
+        }
+      ]
     }
   ],
   "record": {
@@ -133,6 +149,14 @@
         "type": "spouse"
       },
       { "id": 3, "first": "Joe", "last": "Smith", "type": "child" }
+    ],
+    "messages": [
+      {
+        "subject": "message 1"
+      },
+      {
+        "subject": "message 2"
+      }
     ]
   },
   "actions": [{ "text": "Store" }, { "text": "Delete" }]

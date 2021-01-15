@@ -45,13 +45,21 @@
             [formGroupName]="index"
           >
             <span *ngIf="c.dataField != 'actions'">
-              <mat-form-field floatLabel="never">
-                <input
-                  matInput
-                  placeholder=""
-                  formControlName="{{ c.dataField }}"
-                />
-              </mat-form-field>
+              <span [ngSwitch]="true">
+                <mat-form-field
+                  floatLabel="never"
+                  *ngSwitchCase="c.inputType == 'text'"
+                >
+                  <input
+                    matInput
+                    placeholder=""
+                    formControlName="{{ c.dataField }}"
+                  />
+                </mat-form-field>
+                <span *ngSwitchCase="c.inputType == 'label'">
+                  <span>{{ row.value[c.dataField] }}</span>
+                </span>
+              </span>
             </span>
             <span *ngIf="c.dataField == 'actions'">
               <button
@@ -71,22 +79,30 @@
         <tr mat-row *matRowDef="let row; columns: section.sectionColumns"></tr>
       </table>
 
-      <button
-        (click)="
-          addLink(
-            'linkRows_' + section.sectionData,
-            section.sectionNewRowTemplate
-          )
-        "
-        mat-icon-button
-        color="accent"
-        aria-label="Add to table"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-      <button mat-icon-button color="accent" aria-label="Add to table">
-        <mat-icon>link</mat-icon>
-      </button>
+      <span>
+        <button
+          (click)="
+            addLink(
+              'linkRows_' + section.sectionData,
+              section.sectionNewRowTemplate
+            )
+          "
+          *ngIf="section.sectionNewRowTemplate != null"
+          mat-icon-button
+          color="accent"
+          aria-label="Add to table"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          *ngIf="section.sectionLinkSearchCommand != null"
+          mat-icon-button
+          color="accent"
+          aria-label="Add to table"
+        >
+          <mat-icon>link</mat-icon>
+        </button>
+      </span>
     </mat-card-content>
   </mat-card>
 
