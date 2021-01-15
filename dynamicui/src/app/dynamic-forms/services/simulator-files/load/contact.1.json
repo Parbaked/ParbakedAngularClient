@@ -66,7 +66,7 @@
                 "dataField": "state",
                 "label": "State",
                 "inputType": "select",
-                "options": "states"
+                "options": "USSTATES"
               }
             },
             {
@@ -138,7 +138,8 @@
       { "value": "NE", "text": "Nebraska" },
       { "value": "KS", "text": "Kansas" },
       { "value": "WY", "text": "Wyoming" }
-    ]
+    ],
+    "USSTATES": []
   },
   "record": {
     "id": 1,

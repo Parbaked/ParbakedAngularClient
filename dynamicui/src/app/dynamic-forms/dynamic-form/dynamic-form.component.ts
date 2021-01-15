@@ -7,6 +7,8 @@ import { CommanderService } from '../services/commander.service';
 import { MatTable } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
 import { JsonpClientBackend } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { StaticListService } from '../services/static-list.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -30,7 +32,8 @@ export class DynamicFormComponent implements OnInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
-    private commander: CommanderService
+    private commander: CommanderService,
+    private staticListService: StaticListService
   ) {}
 
   ngAfterViewChecked() {
@@ -49,6 +52,12 @@ export class DynamicFormComponent implements OnInit {
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
       return;
+    }
+
+    for (let list of Object.keys(this.data.lists)) {
+      if (list == 'USSTATES') {
+        this.data.lists[list] = this.staticListService.USStates();
+      }
     }
 
     this.form = this.fb.group(this.data.record);
