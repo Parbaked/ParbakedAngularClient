@@ -5,4 +5,5 @@ export interface DynamicFormSection {
   rows: DynamicFormRow[];
   sectionType: string;
   sectionData: string;
+  bindable: any;
 }

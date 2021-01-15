@@ -27,7 +27,7 @@
     <mat-card-content *ngIf="section.sectionType == 'links'">
       <table
         mat-table
-        [dataSource]="tableData"
+        [dataSource]="section.bindable"
         formArrayName="{{ 'linkRows_' + section.sectionData }}"
         class="full-width-table"
       >

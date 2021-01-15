@@ -23,8 +23,6 @@ export class DynamicFormComponent implements OnInit {
   rows: FormArray = this.fb.array([]);
   loaded = false;
 
-  tableData = new BehaviorSubject<AbstractControl[]>([]);
-
   @ViewChild(MatTable) matTable: MatTable<any>;
 
   dataFieldName = 'data.record.first';
@@ -60,6 +58,10 @@ export class DynamicFormComponent implements OnInit {
       if (section.sectionType == 'links') {
         var linkRowsName = 'linkRows_' + section.sectionData;
         this[linkRowsName] = this.fb.array([]);
+
+        var linkDataSourceName = linkRowsName + '_source';
+        this[linkDataSourceName] = new BehaviorSubject<AbstractControl[]>([]);
+
         const linkRowsData = this.data.record[section.sectionData];
         let index = 0;
         linkRowsData.forEach((element) => {
@@ -69,7 +71,8 @@ export class DynamicFormComponent implements OnInit {
         });
 
         this.form.addControl(linkRowsName, this[linkRowsName]);
-        this.updateTable(this[linkRowsName]);
+        this.updateTable(this[linkRowsName], this[linkDataSourceName]);
+        section.bindable = this[linkDataSourceName];
       }
     }
     this.loaded = true;
@@ -112,7 +115,10 @@ export class DynamicFormComponent implements OnInit {
     rows.push(row);
   }
 
-  updateTable(rows: FormArray) {
+  updateTable(
+    rows: FormArray,
+    tableSource: BehaviorSubject<AbstractControl[]>
+  ) {
     for (let index in rows.value) {
       var item = rows.value[index];
       item.rowNumber = parseInt(index);
@@ -127,11 +133,14 @@ export class DynamicFormComponent implements OnInit {
       this.matTable.renderRows();
     }
 
-    this.tableData.next(rows.controls);
+    tableSource.next(rows.controls);
   }
 
   async unlink(rowsName: string, row: any) {
     let rows = this[rowsName] as FormArray;
+    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
+      AbstractControl[]
+    >;
 
     for (let index in rows.value) {
       var item = rows.value[index];
@@ -144,14 +153,17 @@ export class DynamicFormComponent implements OnInit {
       rows.removeAt(rows.length - 1);
     }
 
-    this.updateTable(rows);
+    this.updateTable(rows, tableSource);
   }
 
   async addLink(rowsName: string, addTemplate) {
     let rows = this[rowsName] as FormArray;
+    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
+      AbstractControl[]
+    >;
     const newRow = {};
     Object.assign(newRow, addTemplate);
     this.addRow(rows, newRow);
-    this.updateTable(rows);
+    this.updateTable(rows, tableSource);
   }
 }
