@@ -10,16 +10,36 @@
     >
       <div *ngFor="let row of section.rows" class="row">
         <div *ngFor="let column of row.columns" class="col">
-          <mat-form-field
-            *ngIf="column.control && column.control.inputType == 'text'"
-            class="full-width"
-          >
-            <input
-              matInput
-              placeholder="{{ column.control.label }}"
-              formControlName="{{ column.control.dataField }}"
-            />
-          </mat-form-field>
+          <span *ngIf="column.control" [ngSwitch]="true">
+            <mat-form-field
+              *ngSwitchCase="column.control.inputType == 'text'"
+              class="full-width"
+            >
+              <input
+                matInput
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+              />
+            </mat-form-field>
+
+            <mat-form-field
+              *ngSwitchCase="column.control.inputType == 'select'"
+              class="full-width"
+            >
+              <select
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+                matNativeControl
+              >
+                <option
+                  *ngFor="let o of data.lists[column.control.options]"
+                  value="{{ o.value }}"
+                >
+                  {{ o.text }}
+                </option>
+              </select>
+            </mat-form-field>
+          </span>
         </div>
       </div>
     </mat-card-content>

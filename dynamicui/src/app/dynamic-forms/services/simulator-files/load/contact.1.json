@@ -65,7 +65,8 @@
               "control": {
                 "dataField": "state",
                 "label": "State",
-                "inputType": "text"
+                "inputType": "select",
+                "options": "states"
               }
             },
             {
@@ -132,6 +133,13 @@
       ]
     }
   ],
+  "lists": {
+    "states": [
+      { "value": "NE", "text": "Nebraska" },
+      { "value": "KS", "text": "Kansas" },
+      { "value": "WY", "text": "Wyoming" }
+    ]
+  },
   "record": {
     "id": 1,
     "first": "NOT Bob",
