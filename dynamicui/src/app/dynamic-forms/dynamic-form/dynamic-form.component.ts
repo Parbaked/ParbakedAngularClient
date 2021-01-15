@@ -78,23 +78,20 @@ export class DynamicFormComponent implements OnInit {
   }
 
   async action(text: string) {
-    console.log('command = ' + text);
     Object.keys(this.data.record).forEach((key, index) => {
       const control = this.form.get(key);
       if (control != null) {
         this.data.record[key] = control.value;
-        console.log(JSON.stringify(control.value));
       }
       var value = this.data.record[key];
-      console.log('adding field ' + key + ' ' + value + ' ' + index);
     });
 
     this.data.sections.forEach((section) => {
       if (section.sectionType == 'links') {
         this.data.record[section.sectionData] = [];
 
-        this.rows.value.forEach((element) => {
-          this.data.record[section.sectionData].push(element);
+        section.bindable.value.forEach((element) => {
+          this.data.record[section.sectionData].push(element.value);
         });
       }
     });
@@ -121,11 +118,6 @@ export class DynamicFormComponent implements OnInit {
       item.rowNumber = parseInt(index);
     }
 
-    for (let index in rows.value) {
-      var item = rows.value[index];
-      console.log(item);
-    }
-
     if (this.matTable != null) {
       this.matTable.renderRows();
     }
@@ -138,11 +130,6 @@ export class DynamicFormComponent implements OnInit {
     let tableSource = this[rowsName + '_source'] as BehaviorSubject<
       AbstractControl[]
     >;
-
-    for (let index in rows.value) {
-      var item = rows.value[index];
-      console.log(item);
-    }
 
     if (row.value.rowNumber != undefined) {
       rows.removeAt(row.value.rowNumber);
