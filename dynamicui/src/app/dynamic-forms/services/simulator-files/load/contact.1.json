@@ -85,6 +85,7 @@
       "sectionData": "contactLinks",
       "sectionColumns": ["id", "first", "last", "actions"],
       "sectionAllowRowDelete": true,
+      "sectionLinkSearchCommand": "searchForContact",
       "sectionNewRowTemplate": {
         "id": null,
         "first": "",

@@ -95,6 +95,12 @@
           <mat-icon>add</mat-icon>
         </button>
         <button
+          (click)="
+            addLinkUsingSearch(
+              'linkRows_' + section.sectionData,
+              section.sectionLinkSearchCommand
+            )
+          "
           *ngIf="section.sectionLinkSearchCommand != null"
           mat-icon-button
           color="accent"

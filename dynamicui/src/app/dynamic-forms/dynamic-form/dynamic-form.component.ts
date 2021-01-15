@@ -150,4 +150,8 @@ export class DynamicFormComponent implements OnInit {
     this.addRow(rows, newRow);
     this.updateTable(rows, tableSource);
   }
+
+  async addLinkUsingSearch(rowsName: string, addLinkSearchCommand: string) {
+    alert(addLinkSearchCommand);
+  }
 }
