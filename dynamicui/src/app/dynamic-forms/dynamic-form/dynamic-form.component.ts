@@ -20,7 +20,6 @@ export class DynamicFormComponent implements OnInit {
   id: string;
   provider: string;
   form = this.fb.group({});
-  rows: FormArray = this.fb.array([]);
   loaded = false;
 
   @ViewChild(MatTable) matTable: MatTable<any>;
@@ -77,8 +76,6 @@ export class DynamicFormComponent implements OnInit {
     }
     this.loaded = true;
   }
-
-  //rowNumber = 0;
 
   async action(text: string) {
     console.log('command = ' + text);
