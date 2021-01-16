@@ -23,6 +23,18 @@
             </mat-form-field>
 
             <mat-form-field
+              *ngSwitchCase="column.control.inputType == 'phone'"
+              class="full-width"
+            >
+              <input
+                matInput
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+              />
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field
               *ngSwitchCase="column.control.inputType == 'select'"
               class="full-width"
             >

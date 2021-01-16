@@ -39,20 +39,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
-import { DynamicTableComponent } from './dynamic-forms/dynamic-table/dynamic-table.component';
-import { DynamicFormComponent } from './dynamic-forms/dynamic-form/dynamic-form.component';
-import { DynamicDashboardComponent } from './dynamic-forms/dynamic-dashboard/dynamic-dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DynamicTableComponent,
-    DynamicFormComponent,
-    DynamicDashboardComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

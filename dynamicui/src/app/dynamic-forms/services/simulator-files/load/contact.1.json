@@ -36,7 +36,7 @@
               "control": {
                 "dataField": "phone",
                 "label": "Phone",
-                "inputType": "text"
+                "inputType": "phone"
               }
             }
           ]

@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { JsonpClientBackend } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { StaticListService } from '../services/static-list.service';
+import { FilterService } from '../services/filter.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -33,7 +34,8 @@ export class DynamicFormComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
     private commander: CommanderService,
-    private staticListService: StaticListService
+    private staticListService: StaticListService,
+    private filterService: FilterService
   ) {}
 
   ngAfterViewChecked() {
@@ -83,6 +85,11 @@ export class DynamicFormComponent implements OnInit {
         section.bindable = this[linkDataSourceName];
       }
     }
+
+    this.form.valueChanges.subscribe((val) => {
+      this.filterService.filterFields(val, this.form, this.data);
+    });
+
     this.loaded = true;
   }
 
