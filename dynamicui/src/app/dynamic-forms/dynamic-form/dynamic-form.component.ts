@@ -87,7 +87,7 @@ export class DynamicFormComponent implements OnInit {
     }
 
     this.form.valueChanges.subscribe((val) => {
-      this.filterService.filterFields(val, this.form, this.data);
+      //this.filterService.filterFields(val, this.form, this.data);
     });
 
     this.loaded = true;

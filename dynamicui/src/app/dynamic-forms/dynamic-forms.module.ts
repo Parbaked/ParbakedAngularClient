@@ -37,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DynamicDashboardComponent } from './dynamic-dashboard/dynamic-dashboard.component';
+import { PhoneMaskDirective } from './directives/phone-mask';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
@@ -46,6 +47,7 @@ import { debugOutputAstAsTypeScript } from '@angular/compiler';
     DynamicTableComponent,
     DynamicFormComponent,
     DynamicDashboardComponent,
+    PhoneMaskDirective,
   ],
   imports: [
     CommonModule,

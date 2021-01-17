@@ -32,11 +32,11 @@ export class FilterService {
   }
 
   transformPhone(tel) {
-    var value = tel.toString().trim().replace(/^\+/, '');
+    var value = tel.toString().trim().replace('-', '');
 
-    if (value.match(/[^0-9]/)) {
-      return tel;
-    }
+    // if (value.match(/[^0-9]/)) {
+    //   return tel;
+    // }
 
     var country, city, number;
 
