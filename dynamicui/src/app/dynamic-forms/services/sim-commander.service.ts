@@ -7,11 +7,12 @@ import { TableData } from '../dtos/table-data';
 import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { v4 as uuidv4 } from 'uuid';
 import { CacheService } from './cache.service';
+import { CommanderService } from './commander.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CommanderService {
+export class SimCommanderService implements CommanderService {
   constructor(private router: Router, private cache: CacheService) {}
 
   async processActionCommand(

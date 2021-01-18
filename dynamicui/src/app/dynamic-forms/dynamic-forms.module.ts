@@ -41,8 +41,13 @@ import { PhoneMaskDirective } from './directives/phone-mask';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
+import { CommanderService } from './services/commander.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
+  providers: [
+    { provide: CommanderService, useClass: environment.concreteCommander },
+  ],
   declarations: [
     DynamicTableComponent,
     DynamicFormComponent,

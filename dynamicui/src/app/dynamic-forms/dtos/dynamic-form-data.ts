@@ -7,4 +7,5 @@ export interface DynamicFormData {
   lists: any;
   record: any;
   actions: DynamicFormAction[];
+  dataChangeAction: DynamicFormAction;
 }
