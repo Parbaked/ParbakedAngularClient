@@ -10,16 +10,49 @@
     >
       <div *ngFor="let row of section.rows" class="row">
         <div *ngFor="let column of row.columns" class="col">
-          <mat-form-field
-            *ngIf="column.control && column.control.inputType == 'text'"
-            class="full-width"
-          >
-            <input
-              matInput
-              placeholder="{{ column.control.label }}"
-              formControlName="{{ column.control.dataField }}"
-            />
-          </mat-form-field>
+          <span *ngIf="column.control" [ngSwitch]="true">
+            <mat-form-field
+              *ngSwitchCase="column.control.inputType == 'text'"
+              class="full-width"
+            >
+              <input
+                matInput
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+              />
+            </mat-form-field>
+
+            <mat-form-field
+              *ngSwitchCase="column.control.inputType == 'phone'"
+              class="full-width"
+            >
+              <input
+                matInput
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+                appPhoneMask
+              />
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field
+              *ngSwitchCase="column.control.inputType == 'select'"
+              class="full-width"
+            >
+              <select
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+                matNativeControl
+              >
+                <option
+                  *ngFor="let o of data.lists[column.control.options]"
+                  value="{{ o.value }}"
+                >
+                  {{ o.text }}
+                </option>
+              </select>
+            </mat-form-field>
+          </span>
         </div>
       </div>
     </mat-card-content>
@@ -27,8 +60,8 @@
     <mat-card-content *ngIf="section.sectionType == 'links'">
       <table
         mat-table
-        [dataSource]="tableData"
-        formArrayName="rows"
+        [dataSource]="section.bindable"
+        formArrayName="{{ 'linkRows_' + section.sectionData }}"
         class="full-width-table"
       >
         <ng-container
@@ -45,17 +78,25 @@
             [formGroupName]="index"
           >
             <span *ngIf="c.dataField != 'actions'">
-              <mat-form-field floatLabel="never">
-                <input
-                  matInput
-                  placeholder=""
-                  formControlName="{{ c.dataField }}"
-                />
-              </mat-form-field>
+              <span [ngSwitch]="true">
+                <mat-form-field
+                  floatLabel="never"
+                  *ngSwitchCase="c.inputType == 'text'"
+                >
+                  <input
+                    matInput
+                    placeholder=""
+                    formControlName="{{ c.dataField }}"
+                  />
+                </mat-form-field>
+                <span *ngSwitchCase="c.inputType == 'label'">
+                  <span>{{ row.value[c.dataField] }}</span>
+                </span>
+              </span>
             </span>
             <span *ngIf="c.dataField == 'actions'">
               <button
-                (click)="unlink(row, data.record[section.sectionData])"
+                (click)="unlink('linkRows_' + section.sectionData, row)"
                 mat-icon-button
                 color="accent"
                 aria-label="Remove"
@@ -63,26 +104,6 @@
                 <mat-icon>link_off</mat-icon>
               </button>
             </span>
-            <!-- <span *ngIf="c != 'actions'">
-              <span *ngIf="row.editMode == true">
-                <mat-form-field floatLabel="never">
-                  <input matInput placeholder="" [(ngModel)]="row[c]" />
-                </mat-form-field>
-              </span>
-              <span *ngIf="row.editMode != true">
-                {{ row[c] + 'edit=' + row.editMode + ' ' + row.value.id }}
-              </span>
-            </span>
-            <span *ngIf="c == 'actions'">
-              <button
-                (click)="unlink(row, data.record[section.sectionData])"
-                mat-icon-button
-                color="accent"
-                aria-label="Remove"
-              >
-                <mat-icon>link_off</mat-icon>
-              </button>
-            </span> -->
           </td>
         </ng-container>
 
@@ -91,22 +112,36 @@
         <tr mat-row *matRowDef="let row; columns: section.sectionColumns"></tr>
       </table>
 
-      <button
-        (click)="
-          addLink(
-            data.record[section.sectionData],
-            section.sectionNewRowTemplate
-          )
-        "
-        mat-icon-button
-        color="accent"
-        aria-label="Add to table"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-      <button mat-icon-button color="accent" aria-label="Add to table">
-        <mat-icon>link</mat-icon>
-      </button>
+      <span>
+        <button
+          (click)="
+            addLink(
+              'linkRows_' + section.sectionData,
+              section.sectionNewRowTemplate
+            )
+          "
+          *ngIf="section.sectionNewRowTemplate != null"
+          mat-icon-button
+          color="accent"
+          aria-label="Add to table"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          (click)="
+            addLinkUsingSearch(
+              'linkRows_' + section.sectionData,
+              section.sectionLinkSearchCommand
+            )
+          "
+          *ngIf="section.sectionLinkSearchCommand != null"
+          mat-icon-button
+          color="accent"
+          aria-label="Add to table"
+        >
+          <mat-icon>link</mat-icon>
+        </button>
+      </span>
     </mat-card-content>
   </mat-card>
 

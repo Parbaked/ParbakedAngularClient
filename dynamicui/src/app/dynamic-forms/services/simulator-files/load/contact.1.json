@@ -36,7 +36,7 @@
               "control": {
                 "dataField": "phone",
                 "label": "Phone",
-                "inputType": "text"
+                "inputType": "phone"
               }
             }
           ]
@@ -65,7 +65,8 @@
               "control": {
                 "dataField": "state",
                 "label": "State",
-                "inputType": "text"
+                "inputType": "select",
+                "options": "USSTATES"
               }
             },
             {
@@ -85,6 +86,7 @@
       "sectionData": "contactLinks",
       "sectionColumns": ["id", "first", "last", "actions"],
       "sectionAllowRowDelete": true,
+      "sectionLinkSearchCommand": "searchForContact",
       "sectionNewRowTemplate": {
         "id": null,
         "first": "",
@@ -113,8 +115,32 @@
           "inputType": "actions"
         }
       ]
+    },
+    {
+      "sectionTitle": "Messages",
+      "sectionType": "links",
+      "sectionData": "messages",
+      "sectionColumns": ["subject"],
+      "sectionAllowRowDelete": true,
+      "sectionNewRowTemplate": null,
+      "sectionLinkSearchCommand": null,
+      "sectionColumnDefintions": [
+        {
+          "dataField": "subject",
+          "label": "Subject",
+          "inputType": "label"
+        }
+      ]
     }
   ],
+  "lists": {
+    "states": [
+      { "value": "NE", "text": "Nebraska" },
+      { "value": "KS", "text": "Kansas" },
+      { "value": "WY", "text": "Wyoming" }
+    ],
+    "USSTATES": []
+  },
   "record": {
     "id": 1,
     "first": "NOT Bob",
@@ -133,7 +159,16 @@
         "type": "spouse"
       },
       { "id": 3, "first": "Joe", "last": "Smith", "type": "child" }
+    ],
+    "messages": [
+      {
+        "subject": "message 1"
+      },
+      {
+        "subject": "message 2"
+      }
     ]
   },
-  "actions": [{ "text": "Store" }, { "text": "Delete" }]
+  "actions": [{ "text": "Store" }, { "text": "Delete" }],
+  "dataChangeAction": { "text": "AutoSave" }
 }

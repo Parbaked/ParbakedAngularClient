@@ -10,10 +10,11 @@
 .row {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .col {
-  flex: 1;
+  flex: 11;
   margin-right: 20px;
 }
 

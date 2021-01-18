@@ -7,6 +7,9 @@ import { CommanderService } from '../services/commander.service';
 import { MatTable } from '@angular/material/table';
 import { BehaviorSubject } from 'rxjs';
 import { JsonpClientBackend } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { StaticListService } from '../services/static-list.service';
+import { FilterService } from '../services/filter.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -20,10 +23,7 @@ export class DynamicFormComponent implements OnInit {
   id: string;
   provider: string;
   form = this.fb.group({});
-  rows: FormArray = this.fb.array([]);
   loaded = false;
-
-  tableData = new BehaviorSubject<AbstractControl[]>([]);
 
   @ViewChild(MatTable) matTable: MatTable<any>;
 
@@ -33,7 +33,9 @@ export class DynamicFormComponent implements OnInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
-    private commander: CommanderService
+    private commander: CommanderService,
+    private staticListService: StaticListService,
+    private filterService: FilterService
   ) {}
 
   ngAfterViewChecked() {
@@ -54,67 +56,84 @@ export class DynamicFormComponent implements OnInit {
       return;
     }
 
-    //this.rows = this.data.record['contactLinks'];
-    for (const section of this.data.sections) {
-      if (section.sectionType == 'links') {
-        const linkRows = this.data.record[section.sectionData];
-        let index = 0;
-        linkRows.forEach((element) => {
-          element.rowNumber = index;
-          this.addRow(element);
-          index++;
-        });
+    for (let list of Object.keys(this.data.lists)) {
+      if (list == 'USSTATES') {
+        this.data.lists[list] = this.staticListService.USStates();
       }
     }
 
     this.form = this.fb.group(this.data.record);
-    this.form.addControl('rows', this.rows);
-    this.updateTable();
+
+    for (const section of this.data.sections) {
+      if (section.sectionType == 'links') {
+        var linkRowsName = 'linkRows_' + section.sectionData;
+        this[linkRowsName] = this.fb.array([]);
+
+        var linkDataSourceName = linkRowsName + '_source';
+        this[linkDataSourceName] = new BehaviorSubject<AbstractControl[]>([]);
+
+        const linkRowsData = this.data.record[section.sectionData];
+        let index = 0;
+        linkRowsData.forEach((element) => {
+          element.rowNumber = index;
+          this.addRow(this[linkRowsName], element);
+          index++;
+        });
+
+        this.form.addControl(linkRowsName, this[linkRowsName]);
+        this.updateTable(this[linkRowsName], this[linkDataSourceName]);
+        section.bindable = this[linkDataSourceName];
+      }
+    }
+
+    this.form.valueChanges.subscribe((val) => {
+      if (this.data.dataChangeAction != null) {
+        let obj = this.cleanData(this.data.record, val);
+
+        this.commander.processDataChangeCommand(
+          this.entity,
+          this.id,
+          obj,
+          obj,
+          this.data.dataChangeAction.text
+        );
+      }
+    });
+
     this.loaded = true;
   }
 
-  addRow(record: any) {
-    const row = this.fb.group(record);
-    this.rows.push(row);
-  }
-
-  removeRow(record: any) {}
-
-  updateTable() {
-    if (this.rows != null) {
-      for (let index in this.rows.value) {
-        var item = this.rows.value[index];
-        if (item != null) {
-          item.rowNumber = index;
+  cleanData(oldValues: any, newValues: any): any {
+    var record = {};
+    for (let key of Object.keys(oldValues)) {
+      if (key != '__proto__') {
+        var newV = newValues[key];
+        var oldV = oldValues[key];
+        if (Array.isArray(oldV)) {
+          record[key] = newValues['linkRows_' + key];
+        } else {
+          record[key] = newV;
         }
       }
-
-      this.tableData.next(this.rows.controls);
     }
-
-    if (this.matTable != null) {
-      this.matTable.renderRows();
-    }
+    return record;
   }
 
   async action(text: string) {
-    console.log('command = ' + text);
     Object.keys(this.data.record).forEach((key, index) => {
       const control = this.form.get(key);
       if (control != null) {
         this.data.record[key] = control.value;
-        console.log(JSON.stringify(control.value));
       }
       var value = this.data.record[key];
-      console.log('adding field ' + key + ' ' + value + ' ' + index);
     });
 
     this.data.sections.forEach((section) => {
       if (section.sectionType == 'links') {
         this.data.record[section.sectionData] = [];
 
-        this.rows.value.forEach((element) => {
-          this.data.record[section.sectionData].push(element);
+        section.bindable.value.forEach((element) => {
+          this.data.record[section.sectionData].push(element.value);
         });
       }
     });
@@ -127,15 +146,54 @@ export class DynamicFormComponent implements OnInit {
     );
   }
 
-  async unlink(row: any, tableData: any) {
-    this.rows.removeAt(row.value.rowNumber);
-    this.updateTable();
+  addRow(rows: FormArray, record: any) {
+    const row = this.fb.group(record);
+    rows.push(row);
   }
 
-  async addLink(tableData: any, addTemplate: any) {
+  updateTable(
+    rows: FormArray,
+    tableSource: BehaviorSubject<AbstractControl[]>
+  ) {
+    for (let index in rows.value) {
+      var item = rows.value[index];
+      item.rowNumber = parseInt(index);
+    }
+
+    if (this.matTable != null) {
+      this.matTable.renderRows();
+    }
+
+    tableSource.next(rows.controls);
+  }
+
+  async unlink(rowsName: string, row: any) {
+    let rows = this[rowsName] as FormArray;
+    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
+      AbstractControl[]
+    >;
+
+    if (row.value.rowNumber != undefined) {
+      rows.removeAt(row.value.rowNumber);
+    } else {
+      rows.removeAt(rows.length - 1);
+    }
+
+    this.updateTable(rows, tableSource);
+  }
+
+  async addLink(rowsName: string, addTemplate) {
+    let rows = this[rowsName] as FormArray;
+    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
+      AbstractControl[]
+    >;
     const newRow = {};
     Object.assign(newRow, addTemplate);
-    this.addRow(newRow);
-    this.updateTable();
+    this.addRow(rows, newRow);
+    this.updateTable(rows, tableSource);
+  }
+
+  async addLinkUsingSearch(rowsName: string, addLinkSearchCommand: string) {
+    alert(addLinkSearchCommand);
   }
 }

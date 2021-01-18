@@ -34,8 +34,8 @@
             "sim": {
               "fileReplacements": [
                 {
-                  "replace": "src/app/dynamic-forms/services/commander.service.ts",
-                  "with": "src/app/dynamic-forms/services/sim-commander.service.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sim.ts"
                 }
               ]
             },

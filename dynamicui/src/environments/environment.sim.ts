@@ -2,12 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { CommanderService } from 'src/app/dynamic-forms/services/commander.service';
 import { SimCommanderService } from 'src/app/dynamic-forms/services/sim-commander.service';
 
 export const environment = {
   production: false,
-  concreteCommander: CommanderService,
+  concreteCommander: SimCommanderService,
 };
 
 /*
