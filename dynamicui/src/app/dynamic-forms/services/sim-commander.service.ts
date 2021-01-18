@@ -15,6 +15,14 @@ import { CommanderService } from './commander.service';
 export class SimCommanderService implements CommanderService {
   constructor(private router: Router, private cache: CacheService) {}
 
+  async processDataChangeCommand(
+    entity: string,
+    id: string,
+    data: any,
+    delta: any,
+    text: string
+  ) {}
+
   async processActionCommand(
     text: string,
     id: string,

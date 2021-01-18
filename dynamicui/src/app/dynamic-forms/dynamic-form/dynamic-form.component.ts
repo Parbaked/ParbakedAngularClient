@@ -88,10 +88,35 @@ export class DynamicFormComponent implements OnInit {
 
     this.form.valueChanges.subscribe((val) => {
       if (this.data.dataChangeAction != null) {
+        let obj = this.cleanData(this.data.record, val);
+
+        this.commander.processDataChangeCommand(
+          this.entity,
+          this.id,
+          obj,
+          obj,
+          this.data.dataChangeAction.text
+        );
       }
     });
 
     this.loaded = true;
+  }
+
+  cleanData(oldValues: any, newValues: any): any {
+    var record = {};
+    for (let key of Object.keys(oldValues)) {
+      if (key != '__proto__') {
+        var newV = newValues[key];
+        var oldV = oldValues[key];
+        if (Array.isArray(oldV)) {
+          record[key] = newValues['linkRows_' + key];
+        } else {
+          record[key] = newV;
+        }
+      }
+    }
+    return record;
   }
 
   async action(text: string) {

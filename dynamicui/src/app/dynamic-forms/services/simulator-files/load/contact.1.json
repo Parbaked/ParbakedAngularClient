@@ -169,5 +169,6 @@
       }
     ]
   },
-  "actions": [{ "text": "Store" }, { "text": "Delete" }]
+  "actions": [{ "text": "Store" }, { "text": "Delete" }],
+  "dataChangeAction": { "text": "AutoSave" }
 }

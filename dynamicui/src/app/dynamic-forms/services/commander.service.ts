@@ -26,6 +26,14 @@ export abstract class CommanderService {
     id: string
   ): Promise<DynamicFormData>;
 
+  abstract processDataChangeCommand(
+    entity: string,
+    id: string,
+    data: any,
+    delta: any,
+    text: string
+  );
+
   abstract processCommand(command: RequestCommand): Promise<ResponseCommand>;
 
   abstract currentMenu();
