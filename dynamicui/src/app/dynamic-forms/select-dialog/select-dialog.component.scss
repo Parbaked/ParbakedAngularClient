@@ -1,0 +1,41 @@
+.full-width {
+  width: 100%;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 11;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.listItemTitle {
+  font-size: 14px;
+}
+.listItemDescription {
+  font-size: 12px;
+}
+.listItem {
+  margin-bottom: 5px;
+}
+
+.action-button {
+  margin: 5px;
+}

@@ -1,0 +1,42 @@
+<h1>Select</h1>
+
+<mat-card class="form-card">
+  <mat-form-field class="full-width">
+    <input
+      matInput
+      placeholder="search"
+      [(ngModel)]="searchText"
+      (ngModelChange)="onChange($event)"
+    />
+  </mat-form-field>
+
+  <mat-selection-list (selectionChange)="onSelection($event)">
+    <mat-list-option
+      *ngFor="let item of items"
+      class="listItem"
+      [value]="item.key"
+    >
+      <span class="listItemTitle">{{ item.title }}</span>
+      <span class="listItemDescription">{{ item.description }}</span>
+    </mat-list-option>
+  </mat-selection-list>
+
+  <button
+    class="action-button"
+    (click)="add()"
+    mat-raised-button
+    color="primary"
+    type="submit"
+  >
+    Add
+  </button>
+  <button
+    class="action-button"
+    (click)="cancel()"
+    mat-raised-button
+    color="primary"
+    type="submit"
+  >
+    Cancel
+  </button>
+</mat-card>

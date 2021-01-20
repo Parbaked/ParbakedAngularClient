@@ -8,12 +8,18 @@ import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { v4 as uuidv4 } from 'uuid';
 import { CacheService } from './cache.service';
 import { CommanderService } from './commander.service';
+import { SearchResultItem } from '../dtos/search-result-item';
+import { SearchResult } from '../dtos/search-result';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BizCommanderService implements CommanderService {
   constructor(private router: Router, private cache: CacheService) {}
+
+  processSelectQueryCommand(text: string): Promise<SearchResult> {
+    return null;
+  }
 
   async processDataChangeCommand(
     entity: string,
