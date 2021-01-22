@@ -10,6 +10,8 @@ import { JsonpClientBackend } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { StaticListService } from '../services/static-list.service';
 import { FilterService } from '../services/filter.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -33,6 +35,7 @@ export class DynamicFormComponent implements OnInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
+    public dialog: MatDialog,
     private commander: CommanderService,
     private staticListService: StaticListService,
     private filterService: FilterService
@@ -194,6 +197,14 @@ export class DynamicFormComponent implements OnInit {
   }
 
   async addLinkUsingSearch(rowsName: string, addLinkSearchCommand: string) {
-    alert(addLinkSearchCommand);
+    let dialogRef = this.dialog.open(SelectDialogComponent, {
+      width: '100%',
+      height: '100%',
+      data: { searchCommand: addLinkSearchCommand },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

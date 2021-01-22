@@ -8,12 +8,27 @@ import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { v4 as uuidv4 } from 'uuid';
 import { CacheService } from './cache.service';
 import { CommanderService } from './commander.service';
+import { SearchResultItem } from '../dtos/search-result-item';
+import { SearchResult } from '../dtos/search-result';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimCommanderService implements CommanderService {
   constructor(private router: Router, private cache: CacheService) {}
+
+  async processSelectQueryCommand(
+    text: string,
+    searchCommand: string
+  ): Promise<SearchResult> {
+    return (
+      await this.processCommand({
+        text: text,
+        query: searchCommand,
+        commandType: 'SELECTQUERY',
+      })
+    ).data;
+  }
 
   async processDataChangeCommand(
     entity: string,
@@ -120,8 +135,8 @@ export class SimCommanderService implements CommanderService {
     command: RequestCommand
   ): Promise<ResponseCommand> {
     switch (command.commandType.toLowerCase()) {
-      // case 'start':
-      //   return this.startCommand(command);
+      case 'selectquery':
+        return this.selectQueryCommand(command);
       case 'query':
         return await this.queryCommand(command);
       case 'select':
@@ -139,6 +154,26 @@ export class SimCommanderService implements CommanderService {
     };
   }
 
+  private async selectQueryCommand(
+    command: RequestCommand
+  ): Promise<ResponseCommand> {
+    return {
+      guid: command.guid,
+      title: 'Contacts',
+      data: await this.selectQuery(command.query),
+    };
+  }
+
+  private async selectQuery(queryName: string): Promise<TableData> {
+    let json = '';
+    await import('./simulator-files/selectquery/' + queryName + '.json').then(
+      (data) => {
+        json = data;
+      }
+    );
+    return (json as unknown) as TableData;
+  }
+
   private async queryCommand(
     command: RequestCommand
   ): Promise<ResponseCommand> {
@@ -147,6 +182,16 @@ export class SimCommanderService implements CommanderService {
       title: 'Contacts',
       data: await this.query(command.query),
     };
+  }
+
+  private async query(queryName: string): Promise<TableData> {
+    let json = '';
+    await import('./simulator-files/queries/' + queryName + '.json').then(
+      (data) => {
+        json = data;
+      }
+    );
+    return (json as unknown) as TableData;
   }
 
   private async selectCommand(
@@ -160,16 +205,6 @@ export class SimCommanderService implements CommanderService {
         title: 'Edit ' + command.text,
       },
     };
-  }
-
-  private async query(queryName: string): Promise<TableData> {
-    let json = '';
-    await import('./simulator-files/queries/' + queryName + '.json').then(
-      (data) => {
-        json = data;
-      }
-    );
-    return (json as unknown) as TableData;
   }
 
   private async loadCommand(command: RequestCommand): Promise<ResponseCommand> {

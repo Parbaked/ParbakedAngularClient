@@ -38,6 +38,7 @@ import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DynamicDashboardComponent } from './dynamic-dashboard/dynamic-dashboard.component';
 import { PhoneMaskDirective } from './directives/phone-mask';
+import { SelectDialogComponent } from './select-dialog/select-dialog.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
@@ -53,6 +54,7 @@ import { environment } from 'src/environments/environment';
     DynamicFormComponent,
     DynamicDashboardComponent,
     PhoneMaskDirective,
+    SelectDialogComponent,
   ],
   imports: [
     CommonModule,
