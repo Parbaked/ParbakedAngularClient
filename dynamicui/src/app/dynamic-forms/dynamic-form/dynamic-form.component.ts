@@ -203,8 +203,20 @@ export class DynamicFormComponent implements OnInit {
       data: { searchCommand: addLinkSearchCommand },
     });
 
+    let rows = this[rowsName] as FormArray;
+    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
+      AbstractControl[]
+    >;
+
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      if (result != null && result.selected != null) {
+        result.selected.forEach((element) => {
+          this.addRow(rows, element.record);
+        });
+        this.updateTable(rows, tableSource);
+        console.log(result);
+      }
     });
   }
 }
