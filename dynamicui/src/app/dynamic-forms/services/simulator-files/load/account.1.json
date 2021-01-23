@@ -1,0 +1,95 @@
+{
+  "title": "Create your Account",
+  "width": "small",
+  "sections": [
+    {
+      "sectionTitle": null,
+      "sectionType": "fields",
+      "rows": [
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "name",
+                "label": "Name",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "companyPhone",
+                "label": "Company Phone",
+                "inputType": "phone"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "address1",
+                "label": "Company Address 1",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "address2",
+                "label": "Company Address 2",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "city",
+                "label": "City",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "state",
+                "label": "State",
+                "inputType": "select",
+                "options": "USSTATES"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "lists": {
+    "USSTATES": []
+  },
+  "record": {
+    "id": 1,
+    "name": "John Doe",
+    "companyPhone": "123-456-7890",
+    "companyName": "Kiewit",
+    "address1": "4004 60th St",
+    "address2": "",
+    "city": "Omaha",
+    "state": "NE",
+    "zip": "12345"
+  },
+  "actions": [{ "text": "Create" }, { "text": "Cancel" }],
+  "dataChangeAction": null
+}
