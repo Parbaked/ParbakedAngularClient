@@ -1,162 +1,167 @@
 <div *ngIf="loaded" [formGroup]="form">
-  <h1>{{ data.title }}</h1>
-
-  <mat-card
-    [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'"
-    *ngFor="let section of data.sections"
-  >
-    <mat-card-header *ngIf="section.sectionTitle">
-      <mat-card-title>{{ section.sectionTitle }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content
-      *ngIf="section.sectionType == 'fields' || section.sectionType == null"
+  <mat-card>
+    <h1>{{ data.title }}</h1>
+    <div
+      [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'"
+      *ngFor="let section of data.sections"
     >
-      <div *ngFor="let row of section.rows" class="row">
-        <div *ngFor="let column of row.columns" class="col">
-          <span *ngIf="column.control" [ngSwitch]="true">
-            <mat-form-field
-              *ngSwitchCase="column.control.inputType == 'text'"
-              class="full-width"
-            >
-              <input
-                matInput
-                placeholder="{{ column.control.label }}"
-                formControlName="{{ column.control.dataField }}"
-              />
-            </mat-form-field>
+      <mat-card-header *ngIf="section.sectionTitle">
+        <mat-card-title>{{ section.sectionTitle }}</mat-card-title>
+      </mat-card-header>
 
-            <mat-form-field
-              *ngSwitchCase="column.control.inputType == 'phone'"
-              class="full-width"
-            >
-              <input
-                matInput
-                placeholder="{{ column.control.label }}"
-                formControlName="{{ column.control.dataField }}"
-                appPhoneMask
-              />
-              <mat-icon matSuffix>phone</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field
-              *ngSwitchCase="column.control.inputType == 'select'"
-              class="full-width"
-            >
-              <select
-                placeholder="{{ column.control.label }}"
-                formControlName="{{ column.control.dataField }}"
-                matNativeControl
-              >
-                <option
-                  *ngFor="let o of data.lists[column.control.options]"
-                  value="{{ o.value }}"
-                >
-                  {{ o.text }}
-                </option>
-              </select>
-            </mat-form-field>
-          </span>
-        </div>
-      </div>
-    </mat-card-content>
-
-    <mat-card-content *ngIf="section.sectionType == 'links'">
-      <table
-        mat-table
-        [dataSource]="section.bindable"
-        formArrayName="{{ 'linkRows_' + section.sectionData }}"
-        class="full-width-table"
+      <mat-card-content
+        *ngIf="section.sectionType == 'fields' || section.sectionType == null"
       >
-        <ng-container
-          *ngFor="let c of section.sectionColumnDefintions"
-          matColumnDef="{{ c.dataField }}"
-        >
-          <th mat-header-cell *matHeaderCellDef>
-            <span *ngIf="c.label != 'actions'">{{ c.label }}</span>
-            <span *ngIf="c.label == 'actions'"></span>
-          </th>
-          <td
-            mat-cell
-            *matCellDef="let row; let index = index"
-            [formGroupName]="index"
-          >
-            <span *ngIf="c.dataField != 'actions'">
-              <span [ngSwitch]="true">
-                <mat-form-field
-                  floatLabel="never"
-                  *ngSwitchCase="c.inputType == 'text'"
+        <div *ngFor="let row of section.rows" class="row">
+          <div *ngFor="let column of row.columns" class="col">
+            <span *ngIf="column.control" [ngSwitch]="true">
+              <mat-form-field
+                *ngSwitchCase="column.control.inputType == 'text'"
+                class="full-width"
+              >
+                <input
+                  matInput
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                *ngSwitchCase="column.control.inputType == 'phone'"
+                class="full-width"
+              >
+                <input
+                  matInput
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                  appPhoneMask
+                />
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                *ngSwitchCase="column.control.inputType == 'select'"
+                class="full-width"
+              >
+                <select
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                  matNativeControl
                 >
-                  <input
-                    matInput
-                    placeholder=""
-                    formControlName="{{ c.dataField }}"
-                  />
-                </mat-form-field>
-                <span *ngSwitchCase="c.inputType == 'label'">
-                  <span>{{ row.value[c.dataField] }}</span>
+                  <option
+                    *ngFor="let o of data.lists[column.control.options]"
+                    value="{{ o.value }}"
+                  >
+                    {{ o.text }}
+                  </option>
+                </select>
+              </mat-form-field>
+            </span>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-content *ngIf="section.sectionType == 'links'">
+        <table
+          mat-table
+          [dataSource]="section.bindable"
+          formArrayName="{{ 'linkRows_' + section.sectionData }}"
+          class="full-width-table"
+        >
+          <ng-container
+            *ngFor="let c of section.sectionColumnDefintions"
+            matColumnDef="{{ c.dataField }}"
+          >
+            <th mat-header-cell *matHeaderCellDef>
+              <span *ngIf="c.label != 'actions'">{{ c.label }}</span>
+              <span *ngIf="c.label == 'actions'"></span>
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let row; let index = index"
+              [formGroupName]="index"
+            >
+              <span *ngIf="c.dataField != 'actions'">
+                <span [ngSwitch]="true">
+                  <mat-form-field
+                    floatLabel="never"
+                    *ngSwitchCase="c.inputType == 'text'"
+                  >
+                    <input
+                      matInput
+                      placeholder=""
+                      formControlName="{{ c.dataField }}"
+                    />
+                  </mat-form-field>
+                  <span *ngSwitchCase="c.inputType == 'label'">
+                    <span>{{ row.value[c.dataField] }}</span>
+                  </span>
                 </span>
               </span>
-            </span>
-            <span *ngIf="c.dataField == 'actions'">
-              <button
-                (click)="unlink('linkRows_' + section.sectionData, row)"
-                mat-icon-button
-                color="accent"
-                aria-label="Remove"
-              >
-                <mat-icon>link_off</mat-icon>
-              </button>
-            </span>
-          </td>
-        </ng-container>
+              <span *ngIf="c.dataField == 'actions'">
+                <button
+                  (click)="unlink('linkRows_' + section.sectionData, row)"
+                  mat-icon-button
+                  color="accent"
+                  aria-label="Remove"
+                >
+                  <mat-icon>link_off</mat-icon>
+                </button>
+              </span>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="section.sectionColumns"></tr>
+          <tr mat-header-row *matHeaderRowDef="section.sectionColumns"></tr>
 
-        <tr mat-row *matRowDef="let row; columns: section.sectionColumns"></tr>
-      </table>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: section.sectionColumns"
+          ></tr>
+        </table>
 
-      <span>
-        <button
-          (click)="
-            addLink(
-              'linkRows_' + section.sectionData,
-              section.sectionNewRowTemplate
-            )
-          "
-          *ngIf="section.sectionNewRowTemplate != null"
-          mat-icon-button
-          color="accent"
-          aria-label="Add to table"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
-        <button
-          (click)="
-            addLinkUsingSearch(
-              'linkRows_' + section.sectionData,
-              section.sectionLinkSearchCommand
-            )
-          "
-          *ngIf="section.sectionLinkSearchCommand != null"
-          mat-icon-button
-          color="accent"
-          aria-label="Add to table"
-        >
-          <mat-icon>link</mat-icon>
-        </button>
-      </span>
-    </mat-card-content>
+        <span>
+          <button
+            (click)="
+              addLink(
+                'linkRows_' + section.sectionData,
+                section.sectionNewRowTemplate
+              )
+            "
+            *ngIf="section.sectionNewRowTemplate != null"
+            mat-icon-button
+            color="accent"
+            aria-label="Add to table"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <button
+            (click)="
+              addLinkUsingSearch(
+                'linkRows_' + section.sectionData,
+                section.sectionLinkSearchCommand
+              )
+            "
+            *ngIf="section.sectionLinkSearchCommand != null"
+            mat-icon-button
+            color="accent"
+            aria-label="Add to table"
+          >
+            <mat-icon>link</mat-icon>
+          </button>
+        </span>
+      </mat-card-content>
+    </div>
+
+    <mat-card-actions *ngIf="data.actions">
+      <button
+        *ngFor="let a of data.actions"
+        (click)="action(a.text)"
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        {{ a.text }}
+      </button>
+    </mat-card-actions>
   </mat-card>
-
-  <mat-card-actions *ngIf="data.actions">
-    <button
-      *ngFor="let a of data.actions"
-      (click)="action(a.text)"
-      mat-raised-button
-      color="primary"
-      type="submit"
-    >
-      {{ a.text }}
-    </button>
-  </mat-card-actions>
 </div>
