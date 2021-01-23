@@ -1,10 +1,7 @@
-<div *ngIf="loaded" [formGroup]="form">
-  <mat-card>
+<div *ngIf="loaded" [formGroup]="form" class="main-div">
+  <mat-card [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'">
     <h1>{{ data.title }}</h1>
-    <div
-      [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'"
-      *ngFor="let section of data.sections"
-    >
+    <div *ngFor="let section of data.sections">
       <mat-card-header *ngIf="section.sectionTitle">
         <mat-card-title>{{ section.sectionTitle }}</mat-card-title>
       </mat-card-header>
