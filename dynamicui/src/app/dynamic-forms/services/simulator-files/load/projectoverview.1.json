@@ -1,0 +1,168 @@
+{
+  "title": "Conagra Panel Replacement",
+  "sections": [
+    {
+      "sectionTitle": null,
+      "sectionType": "fields",
+      "rows": [
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "projectOwner",
+                "label": "Project Owner",
+                "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "projectCode",
+                "label": "Project Code",
+                "inputType": "text"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Team Members",
+      "sectionType": "links",
+      "sectionData": "teamMembers",
+      "sectionColumns": ["contractorName", "invitationStatus"],
+      "sectionAllowRowDelete": true,
+      "sectionLinkSearchCommand": null,
+      "sectionNewRowTemplate": null,
+      "sectionColumnDefintions": [
+        {
+          "dataField": "id",
+          "label": "Id",
+          "inputType": "text"
+        },
+        {
+          "dataField": "contractorName",
+          "label": "Contractor Name",
+          "inputType": "label"
+        },
+        {
+          "dataField": "invitationStatus",
+          "label": "Invitation Status",
+          "inputType": "label"
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Contracts",
+      "sectionType": "links",
+      "sectionData": "contracts",
+      "sectionColumns": [
+        "subcontractor",
+        "startdate",
+        "enddate",
+        "contractValue",
+        "status",
+        "rating"
+      ],
+      "sectionAllowRowDelete": false,
+      "sectionLinkSearchCommand": null,
+      "sectionNewRowTemplate": null,
+      "sectionColumnDefintions": [
+        {
+          "dataField": "id",
+          "label": "Id",
+          "inputType": "text"
+        },
+        {
+          "dataField": "subcontractor",
+          "label": "Subcontractor",
+          "inputType": "label"
+        },
+        {
+          "dataField": "startdate",
+          "label": "Start Date",
+          "inputType": "label"
+        },
+        {
+          "dataField": "enddate",
+          "label": "End Date",
+          "inputType": "label"
+        },
+        {
+          "dataField": "contractValue",
+          "label": "Contract Value",
+          "inputType": "label"
+        },
+        {
+          "dataField": "status",
+          "label": "Status",
+          "inputType": "label"
+        },
+        {
+          "dataField": "rating",
+          "label": "Rating",
+          "inputType": "label"
+        }
+      ]
+    }
+  ],
+  "lists": {
+    "states": [
+      { "value": "NE", "text": "Nebraska" },
+      { "value": "KS", "text": "Kansas" },
+      { "value": "WY", "text": "Wyoming" }
+    ],
+    "relationship": [
+      { "value": "child", "text": "Child" },
+      { "value": "spouse", "text": "Spouse" }
+    ],
+    "USSTATES": []
+  },
+  "record": {
+    "id": 1,
+    "projectOwner": "Toni Willamson",
+    "projectCode": "F9HBBOWN4",
+    "teamMembers": [
+      {
+        "id": 2,
+        "contractorName": "Aztec Contracting LLC",
+        "invitationStatus": "Invitation Sent"
+      },
+      {
+        "id": 3,
+        "contractorName": "Cyn Concrete LLC",
+        "invitationStatus": "Accepted"
+      },
+      {
+        "id": 4,
+        "contractorName": "Jackson Complete Concrete",
+        "invitationStatus": "Accepted"
+      }
+    ],
+    "contracts": [
+      {
+        "id": 2,
+        "subcontractor": "1 Stop Paving",
+        "startdate": "1/15/2021",
+        "enddate": "7/1/2021",
+        "contractValue": "$85,000",
+        "status": "In-progress",
+        "rating": "No"
+      },
+      {
+        "id": 2,
+        "subcontractor": "Lewis Tile Installation",
+        "startdate": "3/1/2021",
+        "enddate": "5/1/2021",
+        "contractValue": "$30,000",
+        "status": "In-progress",
+        "rating": "No"
+      }
+    ]
+  },
+  "actions": [{ "text": "Search For Sub Contractor" }],
+  "dataChangeAction": { "text": "AutoSave" }
+}
