@@ -93,6 +93,23 @@
                   <span *ngSwitchCase="c.inputType == 'label'">
                     <span>{{ row.value[c.dataField] }}</span>
                   </span>
+                  <mat-form-field
+                    floatLabel="never"
+                    *ngSwitchCase="c.inputType == 'select'"
+                  >
+                    <select
+                      placeholder="{{ c.label }}"
+                      formControlName="{{ c.dataField }}"
+                      matNativeControl
+                    >
+                      <option
+                        *ngFor="let o of data.lists[c.options]"
+                        value="{{ o.value }}"
+                      >
+                        {{ o.text }}
+                      </option>
+                    </select>
+                  </mat-form-field>
                 </span>
               </span>
               <span *ngIf="c.dataField == 'actions'">

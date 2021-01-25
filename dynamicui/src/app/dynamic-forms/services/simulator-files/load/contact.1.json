@@ -84,7 +84,7 @@
       "sectionTitle": "Related Contacts",
       "sectionType": "links",
       "sectionData": "contactLinks",
-      "sectionColumns": ["id", "first", "last", "actions"],
+      "sectionColumns": ["id", "first", "last", "type", "actions"],
       "sectionAllowRowDelete": true,
       "sectionLinkSearchCommand": "searchForContact",
       "sectionNewRowTemplate": {
@@ -108,6 +108,12 @@
           "dataField": "last",
           "label": "Last",
           "inputType": "text"
+        },
+        {
+          "dataField": "type",
+          "label": "Type",
+          "inputType": "select",
+          "options": "relationship"
         },
         {
           "dataField": "actions",
@@ -138,6 +144,10 @@
       { "value": "NE", "text": "Nebraska" },
       { "value": "KS", "text": "Kansas" },
       { "value": "WY", "text": "Wyoming" }
+    ],
+    "relationship": [
+      { "value": "child", "text": "Child" },
+      { "value": "spouse", "text": "Spouse" }
     ],
     "USSTATES": []
   },
