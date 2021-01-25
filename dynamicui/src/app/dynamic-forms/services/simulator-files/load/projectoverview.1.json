@@ -110,15 +110,6 @@
     }
   ],
   "lists": {
-    "states": [
-      { "value": "NE", "text": "Nebraska" },
-      { "value": "KS", "text": "Kansas" },
-      { "value": "WY", "text": "Wyoming" }
-    ],
-    "relationship": [
-      { "value": "child", "text": "Child" },
-      { "value": "spouse", "text": "Spouse" }
-    ],
     "USSTATES": []
   },
   "record": {

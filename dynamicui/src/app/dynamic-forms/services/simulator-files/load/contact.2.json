@@ -153,10 +153,10 @@
   },
   "record": {
     "id": 1,
-    "first": "Bob",
-    "last": "Smith",
+    "first": "Mary",
+    "last": "Williams",
     "phone": "123-456-7890",
-    "email": "bob@example.com",
+    "email": "mary@example.com",
     "address": "123 Main St",
     "city": "Omaha",
     "state": "NE",

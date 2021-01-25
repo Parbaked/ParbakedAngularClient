@@ -6,7 +6,6 @@ import { ResponseCommand } from '../dtos/response-command';
 import { TableData } from '../dtos/table-data';
 import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { v4 as uuidv4 } from 'uuid';
-import { CacheService } from './cache.service';
 import { CommanderService } from './commander.service';
 import { SearchResultItem } from '../dtos/search-result-item';
 import { SearchResult } from '../dtos/search-result';
@@ -15,7 +14,7 @@ import { SearchResult } from '../dtos/search-result';
   providedIn: 'root',
 })
 export class SimCommanderService implements CommanderService {
-  constructor(private router: Router, private cache: CacheService) {}
+  constructor(private router: Router) {}
 
   async processSelectQueryCommand(
     text: string,
@@ -103,22 +102,21 @@ export class SimCommanderService implements CommanderService {
       };
     }
 
-    this.cache.writeLastResponse(command, response);
     if (response.route) {
       this.router.navigate([response.route]);
     }
 
-    const jsonOut = JSON.stringify(response);
-    console.log(jsonOut);
+    // const jsonOut = JSON.stringify(response);
+    // console.log(jsonOut);
 
     return response;
   }
 
   currentMenu() {
-    var lastResponse = this.cache.readLastResponse();
-    if (lastResponse != null && lastResponse.menu != null) {
-      return lastResponse.menu;
-    }
+    //var lastResponse = this.cache.readLastResponse();
+    // if (lastResponse != null && lastResponse.menu != null) {
+    //   return lastResponse.menu;
+    // }
     return [
       {
         title: 'Home',
