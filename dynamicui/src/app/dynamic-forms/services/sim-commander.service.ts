@@ -9,12 +9,26 @@ import { v4 as uuidv4 } from 'uuid';
 import { CommanderService } from './commander.service';
 import { SearchResultItem } from '../dtos/search-result-item';
 import { SearchResult } from '../dtos/search-result';
+import { DynamicDashboardData } from '../dtos/dynamic-dashboard-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimCommanderService implements CommanderService {
   constructor(private router: Router) {}
+
+  async processDashboardQueryCommand(
+    text: string,
+    searchCommand: string
+  ): Promise<DynamicDashboardData> {
+    return (
+      await this.processCommand({
+        text: text,
+        query: searchCommand,
+        commandType: 'DASHBOARDQUERY',
+      })
+    ).data;
+  }
 
   async processSelectQueryCommand(
     text: string,
@@ -106,17 +120,10 @@ export class SimCommanderService implements CommanderService {
       this.router.navigate([response.route]);
     }
 
-    // const jsonOut = JSON.stringify(response);
-    // console.log(jsonOut);
-
     return response;
   }
 
   currentMenu() {
-    //var lastResponse = this.cache.readLastResponse();
-    // if (lastResponse != null && lastResponse.menu != null) {
-    //   return lastResponse.menu;
-    // }
     return [
       {
         title: 'Home',
@@ -133,6 +140,8 @@ export class SimCommanderService implements CommanderService {
     command: RequestCommand
   ): Promise<ResponseCommand> {
     switch (command.commandType.toLowerCase()) {
+      case 'dashboardquery':
+        return this.dashboardQueryCommand(command);
       case 'selectquery':
         return this.selectQueryCommand(command);
       case 'query':
@@ -150,6 +159,26 @@ export class SimCommanderService implements CommanderService {
       route: 'dt/contacts/allcontacts',
       title: 'Contacts',
     };
+  }
+
+  private async dashboardQueryCommand(
+    command: RequestCommand
+  ): Promise<ResponseCommand> {
+    return {
+      guid: command.guid,
+      title: 'dashboard',
+      data: await this.dashboardQuery(command.query),
+    };
+  }
+
+  private async dashboardQuery(queryName: string): Promise<TableData> {
+    let json = '';
+    await import(
+      './simulator-files/dashboardquery/' + queryName + '.json'
+    ).then((data) => {
+      json = data;
+    });
+    return (json as unknown) as TableData;
   }
 
   private async selectQueryCommand(

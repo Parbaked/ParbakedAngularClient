@@ -9,7 +9,8 @@
         "id": "1",
         "first": "Jen",
         "last": "williams",
-        "city": "Omaha"
+        "city": "Omaha",
+        "type": "child"
       }
     },
     {
@@ -20,7 +21,8 @@
         "id": "1",
         "first": "Jen",
         "last": "williams",
-        "city": "Omaha"
+        "city": "Omaha",
+        "type": "child"
       }
     }
   ]

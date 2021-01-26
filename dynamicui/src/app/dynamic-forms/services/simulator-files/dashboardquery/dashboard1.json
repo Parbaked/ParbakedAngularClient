@@ -1,0 +1,22 @@
+{
+  "title": "Edit Contact",
+  "sections": [
+    {
+      "rows": [
+        {
+          "columns": [
+            {
+              "card": { "title": "c1" }
+            },
+            {
+              "card": { "title": "c2" }
+            },
+            {
+              "card": { "title": "c2" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

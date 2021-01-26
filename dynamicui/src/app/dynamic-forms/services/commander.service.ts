@@ -1,3 +1,4 @@
+import { DynamicDashboardData } from '../dtos/dynamic-dashboard-data';
 import { DynamicFormData } from '../dtos/dynamic-form-data';
 import { RequestCommand } from '../dtos/request-command';
 import { ResponseCommand } from '../dtos/response-command';
@@ -40,6 +41,11 @@ export abstract class CommanderService {
     text: string,
     searchCommand: string
   ): Promise<SearchResult>;
+
+  abstract processDashboardQueryCommand(
+    text: string,
+    searchCommand: string
+  ): Promise<DynamicDashboardData>;
 
   abstract processCommand(command: RequestCommand): Promise<ResponseCommand>;
 

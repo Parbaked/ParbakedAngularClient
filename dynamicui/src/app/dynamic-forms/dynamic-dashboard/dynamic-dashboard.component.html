@@ -1,1 +1,13 @@
-<p>dynamic-dashboard works!</p>
+<div *ngIf="loaded" [formGroup]="form" class="main-div">
+  <div *ngFor="let section of data.sections" class="section">
+    <div *ngFor="let row of section.rows" class="row">
+      <div *ngFor="let column of row.columns" class="col">
+        <mat-card>
+          <mat-card-header *ngIf="column.card.title">
+            <mat-card-title>{{ column.card.title }}</mat-card-title>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

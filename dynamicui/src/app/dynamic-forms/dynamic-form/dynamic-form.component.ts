@@ -209,13 +209,11 @@ export class DynamicFormComponent implements OnInit {
     >;
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
       if (result != null && result.selected != null) {
         result.selected.forEach((element) => {
           this.addRow(rows, element.record);
         });
         this.updateTable(rows, tableSource);
-        console.log(result);
       }
     });
   }

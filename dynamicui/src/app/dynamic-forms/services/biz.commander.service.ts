@@ -10,12 +10,20 @@ import { CacheService } from './cache.service';
 import { CommanderService } from './commander.service';
 import { SearchResultItem } from '../dtos/search-result-item';
 import { SearchResult } from '../dtos/search-result';
+import { DynamicDashboardData } from '../dtos/dynamic-dashboard-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BizCommanderService implements CommanderService {
   constructor(private router: Router, private cache: CacheService) {}
+
+  processDashboardQueryCommand(
+    text: string,
+    searchCommand: string
+  ): Promise<DynamicDashboardData> {
+    return null;
+  }
 
   processSelectQueryCommand(text: string): Promise<SearchResult> {
     return null;
