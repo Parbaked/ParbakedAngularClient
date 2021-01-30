@@ -40,7 +40,14 @@
             </div>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button *ngFor="let action of column.card.actions">
+            <button
+              mat-button
+              *ngFor="let action of column.card.actions"
+              (click)="actionClick(action.text)"
+              mat-raised-button
+              color="primary"
+              type="submit"
+            >
               {{ action.text }}
             </button>
           </mat-card-actions>

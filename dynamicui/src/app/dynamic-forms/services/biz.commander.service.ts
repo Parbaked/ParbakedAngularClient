@@ -39,9 +39,9 @@ export class BizCommanderService implements CommanderService {
 
   async processActionCommand(
     text: string,
-    id: string,
-    entity: string,
-    record: any
+    id?: string,
+    entity?: string,
+    record?: any
   ) {
     this.processCommand({
       commandType: 'ACTION',

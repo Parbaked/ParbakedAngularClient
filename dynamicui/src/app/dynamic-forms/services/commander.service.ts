@@ -9,9 +9,9 @@ import { TableData } from '../dtos/table-data';
 export abstract class CommanderService {
   abstract processActionCommand(
     text: string,
-    id: string,
-    entity: string,
-    record: any
+    id?: string,
+    entity?: string,
+    record?: any
   );
 
   abstract processQueryCommand(
