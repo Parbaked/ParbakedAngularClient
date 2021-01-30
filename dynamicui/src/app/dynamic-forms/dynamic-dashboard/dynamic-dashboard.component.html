@@ -6,6 +6,44 @@
           <mat-card-header *ngIf="column.card.title">
             <mat-card-title>{{ column.card.title }}</mat-card-title>
           </mat-card-header>
+          <img
+            *ngIf="column.card.image"
+            mat-card-image
+            src="{{ column.card.image }}"
+            alt="Photo of a Shiba Inu"
+          />
+          <mat-card-content>
+            <p *ngIf="column.card.description">
+              {{ column.card.description }}
+            </p>
+            <div>
+              <div *ngFor="let cardRow of column.card.fields" class="card-row">
+                <div *ngFor="let cardCol of cardRow" class="card-col">
+                  <div [ngSwitch]="true">
+                    <span *ngSwitchCase="cardCol.displayType == 'label'">
+                      <span>{{ cardCol.data }}</span>
+                    </span>
+                    <mat-form-field
+                      *ngSwitchCase="cardCol.displayType == 'text'"
+                      class="full-width"
+                    >
+                      <input
+                        readonly="true"
+                        placeholder="{{ cardCol.label }}"
+                        matInput
+                        value="{{ cardCol.data }}"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button *ngFor="let action of column.card.actions">
+              {{ action.text }}
+            </button>
+          </mat-card-actions>
         </mat-card>
       </div>
     </div>

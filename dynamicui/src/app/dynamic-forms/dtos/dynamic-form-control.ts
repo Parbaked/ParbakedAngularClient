@@ -3,4 +3,5 @@ export interface DynamicFormControl {
   label: string;
   inputType: string;
   extraData?: any;
+  readonly?: boolean;
 }

@@ -29,7 +29,7 @@
               "control": {
                 "dataField": "email",
                 "label": "Email",
-                "inputType": "text"
+                "inputType": "email"
               }
             },
             {

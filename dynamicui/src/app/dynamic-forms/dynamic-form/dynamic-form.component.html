@@ -18,8 +18,10 @@
               >
                 <input
                   matInput
+                  readonly="{{ column.control.readonly == true }}"
                   placeholder="{{ column.control.label }}"
                   formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
                 />
               </mat-form-field>
 
@@ -29,11 +31,28 @@
               >
                 <input
                   matInput
+                  readonly="{{ column.control.readonly == true }}"
                   placeholder="{{ column.control.label }}"
                   formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
                   appPhoneMask
                 />
                 <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                *ngSwitchCase="column.control.inputType == 'email'"
+                class="full-width"
+              >
+                <input
+                  type="email"
+                  matInput
+                  readonly="{{ column.control.readonly == true }}"
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
+                />
+                <mat-icon matSuffix>email</mat-icon>
               </mat-form-field>
 
               <mat-form-field
@@ -41,8 +60,10 @@
                 class="full-width"
               >
                 <select
+                  disabled="{{ column.control.readonly == true }}"
                   placeholder="{{ column.control.label }}"
                   formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
                   matNativeControl
                 >
                   <option
@@ -88,6 +109,7 @@
                       matInput
                       placeholder=""
                       formControlName="{{ c.dataField }}"
+                      aria-label="{{ c.label }}"
                     />
                   </mat-form-field>
                   <span *ngSwitchCase="c.inputType == 'label'">
