@@ -1,0 +1,35 @@
+<h1>Error</h1>
+
+<div mat-dialog-content>
+  <p>{{ errorMessage }}</p>
+</div>
+<div *ngIf="showDebug">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Details </mat-panel-title>
+      <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label></mat-label>
+        <textarea md-textarea-scrollable matInput>{{ errorDetails }}</textarea>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label></mat-label>
+        <textarea md-textarea-scrollable matInput>{{ errorStack }}</textarea>
+      </mat-form-field>
+    </p>
+  </mat-expansion-panel>
+</div>
+<div mat-dialog-actions>
+  <button
+    type="submit"
+    mat-raised-button
+    mat-button
+    cdkFocusInitial
+    color="primary"
+    (click)="okClick()"
+  >
+    Ok
+  </button>
+</div>

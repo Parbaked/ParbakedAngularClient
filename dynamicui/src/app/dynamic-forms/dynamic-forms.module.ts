@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicRoutingModule } from './dynamic-routing.module';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -38,16 +38,23 @@ import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DynamicDashboardComponent } from './dynamic-dashboard/dynamic-dashboard.component';
 import { PhoneMaskDirective } from './directives/phone-mask';
+
 import { SelectDialogComponent } from './select-dialog/select-dialog.component';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
 import { CommanderService } from './services/commander.service';
 import { environment } from 'src/environments/environment';
+import { GlobalErrorHandler } from './GlobalErrorHandler';
 
 @NgModule({
   providers: [
     { provide: CommanderService, useClass: environment.concreteCommander },
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler,
+    },
   ],
   declarations: [
     DynamicTableComponent,
@@ -55,6 +62,7 @@ import { environment } from 'src/environments/environment';
     DynamicDashboardComponent,
     PhoneMaskDirective,
     SelectDialogComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     CommonModule,

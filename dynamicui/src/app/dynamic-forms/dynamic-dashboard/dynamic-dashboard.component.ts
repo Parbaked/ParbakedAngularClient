@@ -46,7 +46,7 @@ export class DynamicDashboardComponent implements OnInit {
     this.loaded = true;
   }
 
-  actionClick(text: string) {
-    this.commander.processActionCommand(text);
+  async actionClick(text: string) {
+    await this.commander.processActionCommand(text);
   }
 }
