@@ -12,7 +12,6 @@
       mat-table
       class="full-width-table"
       matSort
-      (matSortChange)="onSortData($event)"
       aria-label="{{ 'data for ' + data.title }}"
     >
       <ng-container *ngFor="let c of data.columnHeaders" matColumnDef="{{ c }}">
@@ -27,5 +26,10 @@
         *matRowDef="let row; columns: data.columnHeaders"
       ></tr>
     </table>
+    <mat-paginator
+      *ngIf="data.enablePaging"
+      [pageSizeOptions]="[10, 20, 50]"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
 </div>

@@ -2,6 +2,7 @@
   "title": "Contacts",
   "columnHeaders": ["id", "name", "city", "email"],
   "selectItemCommand": "contact",
+  "enablePaging": true,
   "rows": [
     {
       "id": 1,

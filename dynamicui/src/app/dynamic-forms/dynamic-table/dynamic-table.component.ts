@@ -56,17 +56,13 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
     this.dataSource = new MatTableDataSource(this.data.rows);
 
-    //this.dataSource.paginator = this.paginator;
-    //this.dataSource.sort = this.sort;
-    // this.sort.sortChange.subscribe((x) => {
-    //   console.log(x);
-    // });
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
     }
 
     setTimeout(() => {
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     }, 500);
   }
 
@@ -82,11 +78,5 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  onSortData(sort: Sort) {
-    console.log('sort');
-    //this.dataSource.sort = this.sort;
-    //this.dataSource.sort.sort()
   }
 }

@@ -5,4 +5,5 @@ export interface TableData {
   columnHeaders: string[];
   rows: any[];
   selectItemCommand?: string;
+  enablePaging: boolean;
 }
