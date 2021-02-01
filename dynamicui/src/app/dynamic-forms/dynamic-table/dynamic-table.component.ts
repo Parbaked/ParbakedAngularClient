@@ -5,17 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { ConsoleReporter } from 'jasmine';
 import { TableData } from '../dtos/table-data';
 import { CacheService } from '../services/cache.service';
 import { CommanderService } from '../services/commander.service';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
 @Component({
   selector: 'app-dynamic-table',
@@ -29,6 +21,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  viewMode: string = '1';
+  columnHeaders: string[] = [];
+  displayedColumns: string[] = [];
+  showHeaders: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +52,13 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
     this.dataSource = new MatTableDataSource(this.data.rows);
 
+    this.columnHeaders = [];
+    this.displayedColumns = [];
+    for (let element of this.data.columnHeaders) {
+      this.columnHeaders.push(element);
+      this.displayedColumns.push(element);
+    }
+    
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
     }
@@ -64,6 +67,21 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, 500);
+  }
+
+  viewModeChanged($event) {
+    console.log(this.viewMode);
+    this.displayedColumns = [];
+    this.columnHeaders = [];
+
+    if (this.viewMode == '2') {
+      for (let element of this.data.columnHeaders) {
+        this.columnHeaders.push(element);
+        this.displayedColumns.push(element);
+      }
+    } else {        
+      this.displayedColumns.push('__card');      
+    }      
   }
 
   async selectItem(item) {
@@ -75,7 +93,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  applyFilter(event: Event) {
+  applyFilter($event: Event) {    
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

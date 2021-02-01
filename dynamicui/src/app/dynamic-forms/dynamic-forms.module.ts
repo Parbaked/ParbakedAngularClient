@@ -51,10 +51,10 @@ import { GlobalErrorHandler } from './GlobalErrorHandler';
 @NgModule({
   providers: [
     { provide: CommanderService, useClass: environment.concreteCommander },
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler,
-    },
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: GlobalErrorHandler,
+    // },
   ],
   declarations: [
     DynamicTableComponent,

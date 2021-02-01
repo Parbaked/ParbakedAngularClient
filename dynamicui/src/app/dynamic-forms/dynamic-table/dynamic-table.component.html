@@ -1,12 +1,22 @@
 <div *ngIf="data">
-  <h1>{{ data.title }}</h1>
+  <h1 class="title">{{ data.title }}</h1>
+
+  <mat-radio-group
+    [(ngModel)]="viewMode"
+    class="view-mode"
+    (click)="viewModeChanged($event)"
+    aria-label="Select an View"
+  >
+    <mat-radio-button class="view-mode-type" value="1">Table</mat-radio-button>
+    <mat-radio-button class="view-mode-type" value="2">Card</mat-radio-button>
+  </mat-radio-group>
 
   <mat-form-field class="full-width-table">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8" >
     <table
       [dataSource]="dataSource"
       mat-table
@@ -14,16 +24,28 @@
       matSort
       aria-label="{{ 'data for ' + data.title }}"
     >
-      <ng-container *ngFor="let c of data.columnHeaders" matColumnDef="{{ c }}">
+     
+      <ng-container *ngFor="let c of columnHeaders" matColumnDef="{{ c }}">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ c }}</th>
         <td mat-cell *matCellDef="let row">{{ row[c] }}</td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="data.columnHeaders"></tr>
+      <ng-container matColumnDef="__card">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <mat-card style="height: 100px">
+            <mat-card-header>
+            <mat-card-title>CARD</mat-card-title>
+          </mat-card-header>
+          </mat-card>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         (click)="selectItem(row)"
         mat-row
-        *matRowDef="let row; columns: data.columnHeaders"
+        *matRowDef="let row; columns: displayedColumns"
       ></tr>
     </table>
     <mat-paginator
@@ -32,4 +54,5 @@
       showFirstLastButtons
     ></mat-paginator>
   </div>
+
 </div>
