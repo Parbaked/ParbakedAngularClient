@@ -1,13 +1,19 @@
 <div *ngIf="data">
   <h1>{{ data.title }}</h1>
 
+  <mat-form-field class="full-width-table">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+  </mat-form-field>
+
   <div class="mat-elevation-z8">
     <table
-      [dataSource]="data.rows"
+      [dataSource]="dataSource"
       mat-table
       class="full-width-table"
       matSort
-      aria-label="Elements"
+      (matSortChange)="onSortData($event)"
+      aria-label="{{ 'data for ' + data.title }}"
     >
       <ng-container *ngFor="let c of data.columnHeaders" matColumnDef="{{ c }}">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ c }}</th>

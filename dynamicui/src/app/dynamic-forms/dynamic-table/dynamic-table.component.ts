@@ -1,9 +1,11 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ConsoleReporter } from 'jasmine';
 import { TableData } from '../dtos/table-data';
 import { CacheService } from '../services/cache.service';
 import { CommanderService } from '../services/commander.service';
@@ -24,13 +26,18 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   data: TableData;
   query: string;
   provider: string;
+  dataSource: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private commander: CommanderService,
     private cache: CacheService
-  ) {}
+  ) {
+    this.dataSource = new MatTableDataSource([]);
+  }
 
   ngOnInit(): void {}
 
@@ -47,9 +54,20 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
       this.provider
     );
 
+    this.dataSource = new MatTableDataSource(this.data.rows);
+
+    //this.dataSource.paginator = this.paginator;
+    //this.dataSource.sort = this.sort;
+    // this.sort.sortChange.subscribe((x) => {
+    //   console.log(x);
+    // });
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
     }
+
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+    }, 500);
   }
 
   async selectItem(item) {
@@ -59,5 +77,16 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         item
       );
     }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onSortData(sort: Sort) {
+    console.log('sort');
+    //this.dataSource.sort = this.sort;
+    //this.dataSource.sort.sort()
   }
 }
