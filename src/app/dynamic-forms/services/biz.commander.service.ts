@@ -179,18 +179,7 @@ export class BizCommanderService implements CommanderService {
   }
 
   private query(queryName: string): TableData {
-    switch (queryName) {
-      case 'allcontacts':
-        return {
-          title: 'Contacts',
-          columnHeaders: ['id', 'name', 'city'],
-          selectItemCommand: 'OpenContact',
-          rows: [
-            { id: '1', name: 'bob', city: 'Omaha' },
-            { id: '2', name: 'mary', city: 'Omaha' },
-          ],
-        };
-    }
+    throw new Error('not implemented');
   }
 
   private loadCommand(command: RequestCommand): ResponseCommand {
