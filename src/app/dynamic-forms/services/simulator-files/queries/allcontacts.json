@@ -2,7 +2,15 @@
   "title": "Contacts",
   "columnHeaders": ["id", "name", "city", "email"],
   "cardlayout": {
-    "titleDatafield": "name"
+    "titleDatafield": "name",
+    "rows": [
+      [{ "dataField": "address", "displayType": "text" }],
+      [
+        { "dataField": "city", "displayType": "text" },
+        { "dataField": "state", "displayType": "text" },
+        { "dataField": "postalCode", "displayType": "text" }
+      ]
+    ]
   },
   "selectItemCommand": "contact",
   "enablePaging": true,

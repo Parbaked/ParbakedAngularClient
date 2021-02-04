@@ -32,10 +32,34 @@
       <ng-container matColumnDef="__card">
         <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <mat-card style="height: 100px">
+          <mat-card>
             <mat-card-header>
-              <mat-card-title>{{ row.name }}</mat-card-title>
+              <mat-card-title>{{
+                row[data.cardlayout.titleDatafield]
+              }}</mat-card-title>
             </mat-card-header>
+            <mat-card-content>
+              <div *ngFor="let cardRow of data.cardlayout.rows" class="row">
+                <div *ngFor="let cardCol of cardRow" class="col">
+                  <div [ngSwitch]="true">
+                    <span *ngSwitchCase="cardCol.displayType == 'label'">
+                      <span>{{ cardCol.data }}</span>
+                    </span>
+                    <mat-form-field
+                      *ngSwitchCase="cardCol.displayType == 'text'"
+                      class="full-width"
+                    >
+                      <input
+                        readonly="true"
+                        placeholder="{{ cardCol.label }}"
+                        matInput
+                        value="{{ row[cardCol.dataField] }}"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
           </mat-card>
         </td>
       </ng-container>

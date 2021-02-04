@@ -1,3 +1,4 @@
+import { DynamicTableCard } from './dynamic-table-card';
 import { Row } from './row';
 
 export interface TableData {
@@ -6,4 +7,5 @@ export interface TableData {
   rows: any[];
   selectItemCommand?: string;
   enablePaging: boolean;
+  cardLayout?: DynamicTableCard;
 }
