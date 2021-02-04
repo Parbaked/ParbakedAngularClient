@@ -59,20 +59,38 @@
                 *ngSwitchCase="column.control.inputType == 'select'"
                 class="full-width"
               >
-                <select
-                  disabled="{{ column.control.readonly == true }}"
+                <mat-select
                   placeholder="{{ column.control.label }}"
                   formControlName="{{ column.control.dataField }}"
                   aria-label="{{ column.control.label }}"
-                  matNativeControl
                 >
-                  <option
+                  <mat-option
                     *ngFor="let o of data.lists[column.control.options]"
                     value="{{ o.value }}"
                   >
                     {{ o.text }}
-                  </option>
-                </select>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field
+                *ngSwitchCase="column.control.inputType == 'multiselect'"
+                class="full-width"
+              >
+                <mat-select
+                  disabled="{{ column.control.readonly == true }}"
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let o of data.lists[column.control.options]"
+                    value="{{ o.value }}"
+                  >
+                    {{ o.text }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </span>
           </div>

@@ -45,6 +45,18 @@
           "columns": [
             {
               "control": {
+                "dataField": "contactPreference",
+                "label": "Contact Preferenece",
+                "inputType": "multiselect",
+                "options": "contactPreferences"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
                 "dataField": "address",
                 "label": "Address",
                 "inputType": "text"
@@ -140,10 +152,10 @@
     }
   ],
   "lists": {
-    "states": [
-      { "value": "NE", "text": "Nebraska" },
-      { "value": "KS", "text": "Kansas" },
-      { "value": "WY", "text": "Wyoming" }
+    "contactPreferences": [
+      { "value": "email", "text": "email" },
+      { "value": "phone", "text": "phone" },
+      { "value": "sms", "text": "text message" }
     ],
     "relationship": [
       { "value": "child", "text": "Child" },
@@ -161,6 +173,7 @@
     "city": "Omaha",
     "state": "NE",
     "zip": "12345",
+    "contactPreference": [["email", "phone", "sms"]],
     "contactLinks": [
       {
         "id": 2,
