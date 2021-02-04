@@ -2,6 +2,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicRoutingModule } from './dynamic-routing.module';
 import { LayoutModule } from '@angular/cdk/layout';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,6 +56,7 @@ import { GlobalErrorHandler } from './GlobalErrorHandler';
     //   provide: ErrorHandler,
     //   useClass: GlobalErrorHandler,
     // },
+    Title,
   ],
   declarations: [
     DynamicTableComponent,
@@ -69,7 +71,6 @@ import { GlobalErrorHandler } from './GlobalErrorHandler';
     DynamicRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatCheckboxModule,

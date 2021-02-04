@@ -12,6 +12,7 @@ import { StaticListService } from '../services/static-list.service';
 import { FilterService } from '../services/filter.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -38,7 +39,8 @@ export class DynamicFormComponent implements OnInit {
     public dialog: MatDialog,
     private commander: CommanderService,
     private staticListService: StaticListService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private titleService: Title
   ) {}
 
   ngAfterViewChecked() {
@@ -62,6 +64,8 @@ export class DynamicFormComponent implements OnInit {
     for (let list of Object.keys(this.data.lists)) {
       if (list == 'USSTATES') {
         this.data.lists[list] = this.staticListService.USStates();
+      } else if (list == 'SEX') {
+        this.data.lists[list] = this.staticListService.sexes();
       }
     }
 
@@ -104,6 +108,7 @@ export class DynamicFormComponent implements OnInit {
     });
 
     this.loaded = true;
+    this.titleService.setTitle(this.data.title);
   }
 
   cleanData(oldValues: any, newValues: any): any {

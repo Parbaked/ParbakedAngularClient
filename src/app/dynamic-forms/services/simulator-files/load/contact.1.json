@@ -57,6 +57,18 @@
           "columns": [
             {
               "control": {
+                "dataField": "lastContact",
+                "label": "Last Contact",
+                "inputType": "togglebutton",
+                "options": "lastContact"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
                 "dataField": "address",
                 "label": "Address",
                 "inputType": "text"
@@ -86,6 +98,18 @@
                 "dataField": "zip",
                 "label": "Zip",
                 "inputType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "columns": [
+            {
+              "control": {
+                "dataField": "sex",
+                "label": "Sex",
+                "inputType": "radio",
+                "options": "SEX"
               }
             }
           ]
@@ -161,6 +185,14 @@
       { "value": "child", "text": "Child" },
       { "value": "spouse", "text": "Spouse" }
     ],
+    "lastContact": [
+      { "value": "week", "text": "Week" },
+      { "value": "1month", "text": "1 Month" },
+      { "value": "2month", "text": "2 Months" },
+      { "value": "3month", "text": "3 Months" },
+      { "value": "year", "text": "Year" }
+    ],
+    "SEX": [],
     "USSTATES": []
   },
   "record": {
@@ -174,6 +206,8 @@
     "state": "NE",
     "zip": "12345",
     "contactPreference": [["email", "phone", "sms"]],
+    "lastContact": "week",
+    "sex": "male",
     "contactLinks": [
       {
         "id": 2,

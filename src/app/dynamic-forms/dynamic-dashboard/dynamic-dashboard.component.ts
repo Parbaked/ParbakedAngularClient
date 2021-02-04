@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DynamicDashboardData } from '../dtos/dynamic-dashboard-data';
 import { CommanderService } from '../services/commander.service';
@@ -15,7 +16,8 @@ export class DynamicDashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
-    private commander: CommanderService
+    private commander: CommanderService,
+    private titleService: Title
   ) {}
 
   data: DynamicDashboardData;
@@ -44,6 +46,7 @@ export class DynamicDashboardComponent implements OnInit {
     }
 
     this.loaded = true;
+    this.titleService.setTitle(this.data.title);
   }
 
   async actionClick(text: string) {

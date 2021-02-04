@@ -4,6 +4,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TableData } from '../dtos/table-data';
 import { CacheService } from '../services/cache.service';
@@ -30,7 +31,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private commander: CommanderService,
-    private cache: CacheService
+    private cache: CacheService,
+    private titleService: Title
   ) {
     this.dataSource = new MatTableDataSource([]);
   }
@@ -58,7 +60,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
       this.columnHeaders.push(element);
       this.displayedColumns.push(element);
     }
-    
+
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
     }
@@ -67,6 +69,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, 500);
+
+    this.titleService.setTitle(this.data.title);
   }
 
   viewModeChanged($event) {
@@ -79,9 +83,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         this.columnHeaders.push(element);
         this.displayedColumns.push(element);
       }
-    } else {        
-      this.displayedColumns.push('__card');      
-    }      
+    } else {
+      this.displayedColumns.push('__card');
+    }
   }
 
   async selectItem(item) {
@@ -93,7 +97,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  applyFilter($event: Event) {    
+  applyFilter($event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

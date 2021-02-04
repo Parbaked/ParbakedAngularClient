@@ -1,6 +1,7 @@
 <div *ngIf="loaded" [formGroup]="form" class="main-div">
+  <h1 class="title">{{ data.title }}</h1>
+
   <mat-card [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'">
-    <h1>{{ data.title }}</h1>
     <div *ngFor="let section of data.sections">
       <mat-card-header *ngIf="section.sectionTitle">
         <mat-card-title>{{ section.sectionTitle }}</mat-card-title>
@@ -92,6 +93,46 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-radio-group
+                class="radio-group"
+                *ngSwitchCase="column.control.inputType == 'radio'"
+                disabled="{{ column.control.readonly == true }}"
+                placeholder="{{ column.control.label }}"
+                formControlName="{{ column.control.dataField }}"
+                aria-label="{{ column.control.label }}"
+              >
+                <label class="mat-header-cell full-width">{{
+                  column.control.label
+                }}</label>
+                <mat-radio-button
+                  class="full-width"
+                  *ngFor="let o of data.lists[column.control.options]"
+                  value="{{ o.value }}"
+                >
+                  {{ o.text }}
+                </mat-radio-button>
+              </mat-radio-group>
+
+              <div *ngSwitchCase="column.control.inputType == 'togglebutton'">
+                <label class="mat-header-cell full-width">{{
+                  column.control.label
+                }}</label>
+                <mat-button-toggle-group
+                  class="radio-group"
+                  disabled="{{ column.control.readonly == true }}"
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
+                >
+                  <mat-button-toggle
+                    class="full-width"
+                    *ngFor="let o of data.lists[column.control.options]"
+                    value="{{ o.value }}"
+                  >
+                    {{ o.text }}
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
             </span>
           </div>
         </div>

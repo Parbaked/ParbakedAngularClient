@@ -69,4 +69,13 @@ export class StaticListService {
       { text: 'Wyoming', value: 'WY' },
     ];
   }
+
+  sexes() {
+    return [
+      { text: 'Male', value: 'male' },
+      { text: 'Female', value: 'female' },
+      { text: 'Other', value: 'other' },
+      { text: 'Not specified', value: 'unknown' },
+    ];
+  }
 }
