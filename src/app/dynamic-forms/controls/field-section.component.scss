@@ -1,0 +1,47 @@
+.full-width {
+  width: 100%;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.col {
+  flex: 11;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.form-card-small {
+  width: 400px;
+  margin: 10px auto;
+}
+
+.main-div {
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+}

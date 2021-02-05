@@ -70,28 +70,6 @@ export class DynamicFormComponent implements OnInit {
 
     this.form = this.fb.group(this.data.record);
 
-    // for (const section of this.data.sections) {
-    //   if (section.sectionType == 'links') {
-    //     var linkRowsName = 'linkRows_' + section.sectionData;
-    //     this[linkRowsName] = this.fb.array([]);
-
-    //     var linkDataSourceName = linkRowsName + '_source';
-    //     this[linkDataSourceName] = new BehaviorSubject<AbstractControl[]>([]);
-
-    //     const linkRowsData = this.data.record[section.sectionData];
-    //     let index = 0;
-    //     linkRowsData.forEach((element) => {
-    //       element.rowNumber = index;
-    //       this.addRow(this[linkRowsName], element);
-    //       index++;
-    //     });
-
-    //     this.form.addControl(linkRowsName, this[linkRowsName]);
-    //     this.updateTable(this[linkRowsName], this[linkDataSourceName]);
-    //     section.bindable = this[linkDataSourceName];
-    //   }
-    // }
-
     this.form.valueChanges.subscribe((val) => {
       if (this.data.dataChangeAction != null) {
         let obj = this.cleanData(this.data.record, val);
@@ -151,26 +129,5 @@ export class DynamicFormComponent implements OnInit {
       this.entity,
       this.data.record
     );
-  }
-
-  addRow(rows: FormArray, record: any) {
-    const row = this.fb.group(record);
-    rows.push(row);
-  }
-
-  updateTable(
-    rows: FormArray,
-    tableSource: BehaviorSubject<AbstractControl[]>
-  ) {
-    for (let index in rows.value) {
-      var item = rows.value[index];
-      item.rowNumber = parseInt(index);
-    }
-
-    if (this.matTable != null) {
-      this.matTable.renderRows();
-    }
-
-    tableSource.next(rows.controls);
   }
 }
