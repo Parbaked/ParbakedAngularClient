@@ -48,7 +48,8 @@ import { debugOutputAstAsTypeScript } from '@angular/compiler';
 import { CommanderService } from './services/commander.service';
 import { environment } from 'src/environments/environment';
 import { GlobalErrorHandler } from './GlobalErrorHandler';
-import { SectionComponent } from './controls/section.component';
+import { FieldSectionComponent } from './controls/field-section.component';
+import { LinkSectionComponent } from './controls/link-section.component';
 
 @NgModule({
   providers: [
@@ -66,7 +67,8 @@ import { SectionComponent } from './controls/section.component';
     PhoneMaskDirective,
     SelectDialogComponent,
     ErrorDialogComponent,
-    SectionComponent,
+    FieldSectionComponent,
+    LinkSectionComponent,
   ],
   imports: [
     CommonModule,

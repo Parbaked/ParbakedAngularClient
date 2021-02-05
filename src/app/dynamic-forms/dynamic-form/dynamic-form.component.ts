@@ -11,7 +11,6 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { StaticListService } from '../services/static-list.service';
 import { FilterService } from '../services/filter.service';
 import { MatDialog } from '@angular/material/dialog';
-import { SelectDialogComponent } from '../select-dialog/select-dialog.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -71,27 +70,27 @@ export class DynamicFormComponent implements OnInit {
 
     this.form = this.fb.group(this.data.record);
 
-    for (const section of this.data.sections) {
-      if (section.sectionType == 'links') {
-        var linkRowsName = 'linkRows_' + section.sectionData;
-        this[linkRowsName] = this.fb.array([]);
+    // for (const section of this.data.sections) {
+    //   if (section.sectionType == 'links') {
+    //     var linkRowsName = 'linkRows_' + section.sectionData;
+    //     this[linkRowsName] = this.fb.array([]);
 
-        var linkDataSourceName = linkRowsName + '_source';
-        this[linkDataSourceName] = new BehaviorSubject<AbstractControl[]>([]);
+    //     var linkDataSourceName = linkRowsName + '_source';
+    //     this[linkDataSourceName] = new BehaviorSubject<AbstractControl[]>([]);
 
-        const linkRowsData = this.data.record[section.sectionData];
-        let index = 0;
-        linkRowsData.forEach((element) => {
-          element.rowNumber = index;
-          this.addRow(this[linkRowsName], element);
-          index++;
-        });
+    //     const linkRowsData = this.data.record[section.sectionData];
+    //     let index = 0;
+    //     linkRowsData.forEach((element) => {
+    //       element.rowNumber = index;
+    //       this.addRow(this[linkRowsName], element);
+    //       index++;
+    //     });
 
-        this.form.addControl(linkRowsName, this[linkRowsName]);
-        this.updateTable(this[linkRowsName], this[linkDataSourceName]);
-        section.bindable = this[linkDataSourceName];
-      }
-    }
+    //     this.form.addControl(linkRowsName, this[linkRowsName]);
+    //     this.updateTable(this[linkRowsName], this[linkDataSourceName]);
+    //     section.bindable = this[linkDataSourceName];
+    //   }
+    // }
 
     this.form.valueChanges.subscribe((val) => {
       if (this.data.dataChangeAction != null) {
@@ -173,53 +172,5 @@ export class DynamicFormComponent implements OnInit {
     }
 
     tableSource.next(rows.controls);
-  }
-
-  async unlink(rowsName: string, row: any) {
-    let rows = this[rowsName] as FormArray;
-    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
-      AbstractControl[]
-    >;
-
-    if (row.value.rowNumber != undefined) {
-      rows.removeAt(row.value.rowNumber);
-    } else {
-      rows.removeAt(rows.length - 1);
-    }
-
-    this.updateTable(rows, tableSource);
-  }
-
-  async addLink(rowsName: string, addTemplate) {
-    let rows = this[rowsName] as FormArray;
-    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
-      AbstractControl[]
-    >;
-    const newRow = {};
-    Object.assign(newRow, addTemplate);
-    this.addRow(rows, newRow);
-    this.updateTable(rows, tableSource);
-  }
-
-  async addLinkUsingSearch(rowsName: string, addLinkSearchCommand: string) {
-    let dialogRef = this.dialog.open(SelectDialogComponent, {
-      width: '100%',
-      height: '100%',
-      data: { searchCommand: addLinkSearchCommand },
-    });
-
-    let rows = this[rowsName] as FormArray;
-    let tableSource = this[rowsName + '_source'] as BehaviorSubject<
-      AbstractControl[]
-    >;
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result != null && result.selected != null) {
-        result.selected.forEach((element) => {
-          this.addRow(rows, element.record);
-        });
-        this.updateTable(rows, tableSource);
-      }
-    });
   }
 }

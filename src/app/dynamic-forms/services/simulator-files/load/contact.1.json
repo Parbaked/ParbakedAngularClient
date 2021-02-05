@@ -183,7 +183,10 @@
     ],
     "relationship": [
       { "value": "child", "text": "Child" },
-      { "value": "spouse", "text": "Spouse" }
+      { "value": "spouse", "text": "Spouse" },
+      { "value": "parent", "text": "Parent" },
+      { "value": "sibling", "text": "Sibling" },
+      { "value": "unknonw", "text": "Not Specified" }
     ],
     "lastContact": [
       { "value": "week", "text": "Week" },

@@ -10,115 +10,11 @@
       <mat-card-content
         *ngIf="section.sectionType == 'fields' || section.sectionType == null"
       >
-        <section [section]="section" [data]="data"></section>
+        <field-section [section]="section" [data]="data"></field-section>
       </mat-card-content>
 
       <mat-card-content *ngIf="section.sectionType == 'links'">
-        <table
-          mat-table
-          [dataSource]="section.bindable"
-          formArrayName="{{ 'linkRows_' + section.sectionData }}"
-          class="full-width-table"
-        >
-          <ng-container
-            *ngFor="let c of section.sectionColumnDefintions"
-            matColumnDef="{{ c.dataField }}"
-          >
-            <th mat-header-cell *matHeaderCellDef>
-              <span *ngIf="c.label != 'actions'">{{ c.label }}</span>
-              <span *ngIf="c.label == 'actions'"></span>
-            </th>
-            <td
-              mat-cell
-              *matCellDef="let row; let index = index"
-              [formGroupName]="index"
-            >
-              <span *ngIf="c.dataField != 'actions'">
-                <span [ngSwitch]="true">
-                  <mat-form-field
-                    floatLabel="never"
-                    *ngSwitchCase="c.inputType == 'text'"
-                  >
-                    <input
-                      matInput
-                      placeholder=""
-                      formControlName="{{ c.dataField }}"
-                      aria-label="{{ c.label }}"
-                    />
-                  </mat-form-field>
-                  <span *ngSwitchCase="c.inputType == 'label'">
-                    <span>{{ row.value[c.dataField] }}</span>
-                  </span>
-                  <mat-form-field
-                    floatLabel="never"
-                    *ngSwitchCase="c.inputType == 'select'"
-                  >
-                    <select
-                      placeholder="{{ c.label }}"
-                      formControlName="{{ c.dataField }}"
-                      matNativeControl
-                    >
-                      <option
-                        *ngFor="let o of data.lists[c.options]"
-                        value="{{ o.value }}"
-                      >
-                        {{ o.text }}
-                      </option>
-                    </select>
-                  </mat-form-field>
-                </span>
-              </span>
-              <span *ngIf="c.dataField == 'actions'">
-                <button
-                  (click)="unlink('linkRows_' + section.sectionData, row)"
-                  mat-icon-button
-                  color="accent"
-                  aria-label="Remove"
-                >
-                  <mat-icon>link_off</mat-icon>
-                </button>
-              </span>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="section.sectionColumns"></tr>
-
-          <tr
-            mat-row
-            *matRowDef="let row; columns: section.sectionColumns"
-          ></tr>
-        </table>
-
-        <span>
-          <button
-            (click)="
-              addLink(
-                'linkRows_' + section.sectionData,
-                section.sectionNewRowTemplate
-              )
-            "
-            *ngIf="section.sectionNewRowTemplate != null"
-            mat-icon-button
-            color="accent"
-            aria-label="Add to table"
-          >
-            <mat-icon>add</mat-icon>
-          </button>
-          <button
-            (click)="
-              addLinkUsingSearch(
-                'linkRows_' + section.sectionData,
-                section.sectionLinkSearchCommand
-              )
-            "
-            *ngIf="section.sectionLinkSearchCommand != null"
-            mat-icon-button
-            color="accent"
-            aria-label="Add to table"
-          >
-            <mat-icon>link</mat-icon>
-          </button>
-        </span>
+        <link-section [section]="section" [data]="data"></link-section>
       </mat-card-content>
     </div>
 
