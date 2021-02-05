@@ -93,26 +93,27 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-radio-group
-                class="radio-group"
-                *ngSwitchCase="column.control.inputType == 'radio'"
-                disabled="{{ column.control.readonly == true }}"
-                placeholder="{{ column.control.label }}"
-                formControlName="{{ column.control.dataField }}"
-                aria-label="{{ column.control.label }}"
-              >
+              <div *ngSwitchCase="column.control.inputType == 'radio'">
                 <label class="mat-header-cell full-width">{{
                   column.control.label
                 }}</label>
-                <mat-radio-button
-                  class="full-width"
-                  *ngFor="let o of data.lists[column.control.options]"
-                  value="{{ o.value }}"
-                >
-                  {{ o.text }}
-                </mat-radio-button>
-              </mat-radio-group>
 
+                <mat-radio-group
+                  class="radio-group"
+                  disabled="{{ column.control.readonly == true }}"
+                  placeholder="{{ column.control.label }}"
+                  formControlName="{{ column.control.dataField }}"
+                  aria-label="{{ column.control.label }}"
+                >
+                  <mat-radio-button
+                    class="full-width"
+                    *ngFor="let o of data.lists[column.control.options]"
+                    value="{{ o.value }}"
+                  >
+                    {{ o.text }}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
               <div *ngSwitchCase="column.control.inputType == 'togglebutton'">
                 <label class="mat-header-cell full-width">{{
                   column.control.label
