@@ -1,176 +1,181 @@
 {
   "title": "Edit Contact",
-  "sections": [
+  "tabs": [
     {
-      "sectionTitle": "Personal Information",
-      "sectionType": "fields",
-      "rows": [
+      "title": "Information",
+      "sections": [
         {
-          "columns": [
+          "sectionTitle": "Personal Information",
+          "sectionType": "fields",
+          "rows": [
             {
-              "control": {
-                "dataField": "first",
-                "label": "First",
-                "inputType": "text"
-              }
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "first",
+                    "label": "First",
+                    "inputType": "text"
+                  }
+                },
+                {
+                  "control": {
+                    "dataField": "last",
+                    "label": "Last",
+                    "inputType": "text"
+                  }
+                }
+              ]
             },
             {
-              "control": {
-                "dataField": "last",
-                "label": "Last",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
-            {
-              "control": {
-                "dataField": "email",
-                "label": "Email",
-                "inputType": "email"
-              }
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "email",
+                    "label": "Email",
+                    "inputType": "email"
+                  }
+                },
+                {
+                  "control": {
+                    "dataField": "phone",
+                    "label": "Phone",
+                    "inputType": "phone"
+                  }
+                }
+              ]
             },
             {
-              "control": {
-                "dataField": "phone",
-                "label": "Phone",
-                "inputType": "phone"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
-            {
-              "control": {
-                "dataField": "contactPreference",
-                "label": "Contact Preferenece",
-                "inputType": "multiselect",
-                "options": "contactPreferences"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
-            {
-              "control": {
-                "dataField": "lastContact",
-                "label": "Last Contact",
-                "inputType": "togglebutton",
-                "options": "lastContact"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
-            {
-              "control": {
-                "dataField": "address",
-                "label": "Address",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
-            {
-              "control": {
-                "dataField": "city",
-                "label": "City",
-                "inputType": "text"
-              }
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "contactPreference",
+                    "label": "Contact Preferenece",
+                    "inputType": "multiselect",
+                    "options": "contactPreferences"
+                  }
+                }
+              ]
             },
             {
-              "control": {
-                "dataField": "state",
-                "label": "State",
-                "inputType": "select",
-                "options": "USSTATES"
-              }
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "lastContact",
+                    "label": "Last Contact",
+                    "inputType": "togglebutton",
+                    "options": "lastContact"
+                  }
+                }
+              ]
             },
             {
-              "control": {
-                "dataField": "zip",
-                "label": "Zip",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "address",
+                    "label": "Address",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            },
             {
-              "control": {
-                "dataField": "sex",
-                "label": "Sex",
-                "inputType": "radio",
-                "options": "SEX"
-              }
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "city",
+                    "label": "City",
+                    "inputType": "text"
+                  }
+                },
+                {
+                  "control": {
+                    "dataField": "state",
+                    "label": "State",
+                    "inputType": "select",
+                    "options": "USSTATES"
+                  }
+                },
+                {
+                  "control": {
+                    "dataField": "zip",
+                    "label": "Zip",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            },
+            {
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "sex",
+                    "label": "Sex",
+                    "inputType": "radio",
+                    "options": "SEX"
+                  }
+                }
+              ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "sectionTitle": "Related Contacts",
-      "sectionType": "links",
-      "sectionData": "contactLinks",
-      "sectionColumns": ["id", "first", "last", "type", "actions"],
-      "sectionAllowRowDelete": true,
-      "sectionLinkSearchCommand": "searchForContact",
-      "sectionNewRowTemplate": {
-        "id": null,
-        "first": "",
-        "last": "",
-        "type": ""
-      },
-      "sectionColumnDefintions": [
-        {
-          "dataField": "id",
-          "label": "Id",
-          "inputType": "text"
         },
         {
-          "dataField": "first",
-          "label": "First",
-          "inputType": "text"
+          "sectionTitle": "Related Contacts",
+          "sectionType": "links",
+          "sectionData": "contactLinks",
+          "sectionColumns": ["id", "first", "last", "type", "actions"],
+          "sectionAllowRowDelete": true,
+          "sectionLinkSearchCommand": "searchForContact",
+          "sectionNewRowTemplate": {
+            "id": null,
+            "first": "",
+            "last": "",
+            "type": ""
+          },
+          "sectionColumnDefintions": [
+            {
+              "dataField": "id",
+              "label": "Id",
+              "inputType": "text"
+            },
+            {
+              "dataField": "first",
+              "label": "First",
+              "inputType": "text"
+            },
+            {
+              "dataField": "last",
+              "label": "Last",
+              "inputType": "text"
+            },
+            {
+              "dataField": "type",
+              "label": "Type",
+              "inputType": "select",
+              "options": "relationship"
+            },
+            {
+              "dataField": "actions",
+              "label": "actions",
+              "inputType": "actions"
+            }
+          ]
         },
         {
-          "dataField": "last",
-          "label": "Last",
-          "inputType": "text"
-        },
-        {
-          "dataField": "type",
-          "label": "Type",
-          "inputType": "select",
-          "options": "relationship"
-        },
-        {
-          "dataField": "actions",
-          "label": "actions",
-          "inputType": "actions"
-        }
-      ]
-    },
-    {
-      "sectionTitle": "Messages",
-      "sectionType": "links",
-      "sectionData": "messages",
-      "sectionColumns": ["subject"],
-      "sectionAllowRowDelete": true,
-      "sectionNewRowTemplate": null,
-      "sectionLinkSearchCommand": null,
-      "sectionColumnDefintions": [
-        {
-          "dataField": "subject",
-          "label": "Subject",
-          "inputType": "label"
+          "sectionTitle": "Messages",
+          "sectionType": "links",
+          "sectionData": "messages",
+          "sectionColumns": ["subject"],
+          "sectionAllowRowDelete": true,
+          "sectionNewRowTemplate": null,
+          "sectionLinkSearchCommand": null,
+          "sectionColumnDefintions": [
+            {
+              "dataField": "subject",
+              "label": "Subject",
+              "inputType": "label"
+            }
+          ]
         }
       ]
     }

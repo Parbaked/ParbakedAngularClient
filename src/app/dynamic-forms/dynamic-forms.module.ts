@@ -50,6 +50,7 @@ import { environment } from 'src/environments/environment';
 import { GlobalErrorHandler } from './GlobalErrorHandler';
 import { FieldSectionComponent } from './controls/field-section.component';
 import { LinkSectionComponent } from './controls/link-section.component';
+import { SectionComponent } from './controls/section.component';
 
 @NgModule({
   providers: [
@@ -69,6 +70,7 @@ import { LinkSectionComponent } from './controls/link-section.component';
     ErrorDialogComponent,
     FieldSectionComponent,
     LinkSectionComponent,
+    SectionComponent,
   ],
   imports: [
     CommonModule,

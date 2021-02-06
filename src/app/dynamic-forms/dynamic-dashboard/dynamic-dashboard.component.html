@@ -1,6 +1,4 @@
 <div *ngIf="loaded" [formGroup]="form" class="main-div">
-  <h1 class="title">{{ data.title }}</h1>
-
   <div *ngFor="let section of data.sections" class="section">
     <div *ngFor="let row of section.rows" class="row">
       <div *ngFor="let column of row.columns" class="col">

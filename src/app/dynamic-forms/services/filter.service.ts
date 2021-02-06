@@ -10,24 +10,26 @@ export class FilterService {
   constructor() {}
 
   filterFields(record: any, form: FormGroup, formDef: DynamicFormData) {
-    formDef.sections.forEach((section) => {
-      if (section.sectionType == 'fields') {
-        section.rows.forEach((row) => {
-          row.columns.forEach((column) => {
-            if (column.control != null) {
-              if (column.control.inputType == 'phone') {
-                var number = record[column.control.dataField];
-                var transformed = this.transformPhone(number);
-                if (number != transformed) {
-                  var patch = {};
-                  patch[column.control.dataField] = transformed;
-                  form.patchValue(patch);
+    formDef.tabs.forEach((tab) => {
+      tab.sections.forEach((section) => {
+        if (section.sectionType == 'fields') {
+          section.rows.forEach((row) => {
+            row.columns.forEach((column) => {
+              if (column.control != null) {
+                if (column.control.inputType == 'phone') {
+                  var number = record[column.control.dataField];
+                  var transformed = this.transformPhone(number);
+                  if (number != transformed) {
+                    var patch = {};
+                    patch[column.control.dataField] = transformed;
+                    form.patchValue(patch);
+                  }
                 }
               }
-            }
+            });
           });
-        });
-      }
+        }
+      });
     });
   }
 

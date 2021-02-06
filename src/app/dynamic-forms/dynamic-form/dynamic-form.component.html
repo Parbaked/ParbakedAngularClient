@@ -1,33 +1,21 @@
 <div *ngIf="loaded" [formGroup]="form" class="main-div">
   <h1 class="title">{{ data.title }}</h1>
 
-  <mat-card [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'">
-    <div *ngFor="let section of data.sections">
-      <mat-card-header *ngIf="section.sectionTitle">
-        <mat-card-title>{{ section.sectionTitle }}</mat-card-title>
-      </mat-card-header>
+  <mat-tab-group>
+    <mat-tab *ngFor="let tab of data.tabs" label="{{ tab.title }}">
+      <section [sections]="tab.sections" [data]="data"></section>
+    </mat-tab>
+  </mat-tab-group>
 
-      <mat-card-content
-        *ngIf="section.sectionType == 'fields' || section.sectionType == null"
-      >
-        <field-section [section]="section" [data]="data"></field-section>
-      </mat-card-content>
-
-      <mat-card-content *ngIf="section.sectionType == 'links'">
-        <link-section [section]="section" [data]="data"></link-section>
-      </mat-card-content>
-    </div>
-
-    <mat-card-actions *ngIf="data.actions">
-      <button
-        *ngFor="let a of data.actions"
-        (click)="action(a.text)"
-        mat-raised-button
-        color="primary"
-        type="submit"
-      >
-        {{ a.text }}
-      </button>
-    </mat-card-actions>
-  </mat-card>
+  <mat-card-actions *ngIf="data.actions">
+    <button
+      *ngFor="let a of data.actions"
+      (click)="action(a.text)"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      {{ a.text }}
+    </button>
+  </mat-card-actions>
 </div>

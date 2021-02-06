@@ -55,6 +55,7 @@ export class DynamicFormComponent implements OnInit {
 
     this.data = await this.commander.processLoadCommand(this.entity, this.id);
 
+    console.log(this.data);
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
       return;
@@ -113,14 +114,16 @@ export class DynamicFormComponent implements OnInit {
       var value = this.data.record[key];
     });
 
-    this.data.sections.forEach((section) => {
-      if (section.sectionType == 'links') {
-        this.data.record[section.sectionData] = [];
+    this.data.tabs.forEach((tab) => {
+      tab.sections.forEach((section) => {
+        if (section.sectionType == 'links') {
+          this.data.record[section.sectionData] = [];
 
-        section.bindable.value.forEach((element) => {
-          this.data.record[section.sectionData].push(element.value);
-        });
-      }
+          section.bindable.value.forEach((element) => {
+            this.data.record[section.sectionData].push(element.value);
+          });
+        }
+      });
     });
 
     await this.commander.processActionCommand(
