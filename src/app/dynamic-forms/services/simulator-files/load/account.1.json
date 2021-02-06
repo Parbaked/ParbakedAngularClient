@@ -1,81 +1,87 @@
 {
   "title": "Create your Account",
   "width": "small",
-  "sections": [
+  "tabs": [
     {
-      "sectionTitle": null,
-      "sectionType": "fields",
-      "rows": [
+      "title": "Create your Account",
+      "sections": [
         {
-          "columns": [
+          "sectionTitle": null,
+          "sectionType": "fields",
+          "rows": [
             {
-              "control": {
-                "dataField": "name",
-                "label": "Name",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "name",
+                    "label": "Name",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            },
             {
-              "control": {
-                "dataField": "companyPhone",
-                "label": "Company Phone",
-                "inputType": "phone"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "companyPhone",
+                    "label": "Company Phone",
+                    "inputType": "phone"
+                  }
+                }
+              ]
+            },
             {
-              "control": {
-                "dataField": "address1",
-                "label": "Company Address 1",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "address1",
+                    "label": "Company Address 1",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            },
             {
-              "control": {
-                "dataField": "address2",
-                "label": "Company Address 2",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "address2",
+                    "label": "Company Address 2",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            },
             {
-              "control": {
-                "dataField": "city",
-                "label": "City",
-                "inputType": "text"
-              }
-            }
-          ]
-        },
-        {
-          "columns": [
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "city",
+                    "label": "City",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            },
             {
-              "control": {
-                "dataField": "state",
-                "label": "State",
-                "inputType": "select",
-                "options": "USSTATES"
-              }
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "state",
+                    "label": "State",
+                    "inputType": "select",
+                    "options": "USSTATES"
+                  }
+                }
+              ]
             }
           ]
         }
       ]
     }
   ],
+
   "lists": {
     "USSTATES": []
   },

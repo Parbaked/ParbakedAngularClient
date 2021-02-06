@@ -1,11 +1,29 @@
 <div *ngIf="loaded" [formGroup]="form" class="main-div">
   <h1 class="title">{{ data.title }}</h1>
 
-  <mat-tab-group>
+  <div *ngIf="data == null" aria-details="ERROR">ERROR</div>
+  <div
+    *ngIf="data != null && (data.tabs == null || data.tabs.length == 0)"
+    )
+    aria-details="ERROR"
+  >
+    FORM CONFIGURATION ERROR
+  </div>
+  <div *ngIf="data != null && data.record == null" aria-details="ERROR">
+    NO DATA
+  </div>
+
+  <mat-tab-group *ngIf="data.tabs.length > 1">
     <mat-tab *ngFor="let tab of data.tabs" label="{{ tab.title }}">
       <section [sections]="tab.sections" [data]="data"></section>
     </mat-tab>
   </mat-tab-group>
+
+  <section
+    *ngIf="data.tabs.length == 1"
+    [sections]="data.tabs[0].sections"
+    [data]="data"
+  ></section>
 
   <mat-card-actions *ngIf="data.actions">
     <button
