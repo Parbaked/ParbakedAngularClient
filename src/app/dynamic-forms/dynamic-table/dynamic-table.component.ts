@@ -26,6 +26,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   columnHeaders: string[] = [];
   displayedColumns: string[] = [];
   showHeaders: boolean = true;
+  loaded = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +72,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     }, 500);
 
     this.titleService.setTitle(this.data.title);
+    this.loaded = true;
   }
 
   viewModeChanged($event) {

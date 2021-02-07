@@ -204,15 +204,17 @@ export class SimCommanderService implements CommanderService {
   private async queryCommand(
     command: RequestCommand
   ): Promise<ResponseCommand> {
+    const path = 'queries/' + command.query + '.json';
     return {
       guid: command.guid,
       title: 'Contacts',
-      data: await this.query(command.query),
+      data: await this.readFromFile(path),
     };
   }
 
   private async query(queryName: string): Promise<TableData> {
     let json = '';
+
     await import('./simulator-files/queries/' + queryName + '.json').then(
       (data) => {
         json = data;
@@ -245,7 +247,7 @@ export class SimCommanderService implements CommanderService {
   }
 
   private async readFromFile(path: string): Promise<DynamicFormData> {
-    const time = Math.floor(Math.random() * 300) + 100;
+    const time = Math.floor(Math.random() * 400) + 100;
     var promise = new Promise<DynamicFormData>(async (success, failure) => {
       setTimeout(async () => {
         await import('./simulator-files/' + path).then((data) => {

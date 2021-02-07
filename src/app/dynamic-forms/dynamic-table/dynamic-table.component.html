@@ -1,4 +1,4 @@
-<div *ngIf="data" class="main-div">
+<div *ngIf="data && loaded" class="main-div">
   <h1 class="title">{{ data.title }}</h1>
 
   <mat-radio-group
@@ -77,4 +77,7 @@
       showFirstLastButtons
     ></mat-paginator>
   </div>
+</div>
+<div *ngIf="!loaded" class="main-div">
+  <mat-spinner class="progress-spinner"></mat-spinner>
 </div>
