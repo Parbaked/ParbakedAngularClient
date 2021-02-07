@@ -244,12 +244,16 @@ export class SimCommanderService implements CommanderService {
   }
 
   private async load(entityType: string, id: string): Promise<DynamicFormData> {
-    let json = '';
-    await import(
-      './simulator-files/load/' + entityType + '.' + id + '.json'
-    ).then((data) => {
-      json = data;
+    const time = Math.floor(Math.random() * 300) + 100;
+    var promise = new Promise<DynamicFormData>(async (success, failure) => {
+      setTimeout(async () => {
+        await import(
+          './simulator-files/load/' + entityType + '.' + id + '.json'
+        ).then((data) => {
+          success(data);
+        });
+      }, time);
     });
-    return (json as unknown) as DynamicFormData;
+    return promise;
   }
 }

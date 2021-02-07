@@ -41,7 +41,9 @@
   margin-top: 10px;
 }
 
-.radio-group {
-  display: flex;
-  flex-direction: row;
+.progress-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

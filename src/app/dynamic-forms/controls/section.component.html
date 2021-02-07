@@ -1,8 +1,6 @@
 <div [formGroup]="controlContainer.control">
   <div>
-    <mat-card
-      [ngClass]="data.width == 'small' ? 'form-card-small' : 'form-card'"
-    >
+    <mat-card>
       <div *ngFor="let section of sections">
         <mat-card-header *ngIf="section.sectionTitle">
           <mat-card-title>{{ section.sectionTitle }}</mat-card-title>
