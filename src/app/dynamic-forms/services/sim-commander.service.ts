@@ -235,21 +235,20 @@ export class SimCommanderService implements CommanderService {
   }
 
   private async loadCommand(command: RequestCommand): Promise<ResponseCommand> {
+    const path = 'load/' + command.text + '.' + command.id + '.json';
     return {
       guid: command.guid,
       title: command.text,
-      data: await this.load(command.text, command.id),
+      data: await this.readFromFile(path),
       route: null,
     };
   }
 
-  private async load(entityType: string, id: string): Promise<DynamicFormData> {
+  private async readFromFile(path: string): Promise<DynamicFormData> {
     const time = Math.floor(Math.random() * 300) + 100;
     var promise = new Promise<DynamicFormData>(async (success, failure) => {
       setTimeout(async () => {
-        await import(
-          './simulator-files/load/' + entityType + '.' + id + '.json'
-        ).then((data) => {
+        await import('./simulator-files/' + path).then((data) => {
           success(data);
         });
       }, time);
