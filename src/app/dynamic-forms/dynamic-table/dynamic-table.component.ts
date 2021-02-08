@@ -48,10 +48,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     this.query = this.route.snapshot.paramMap.get('query');
     this.provider = this.route.snapshot.paramMap.get('provider');
 
-    this.data = await this.commander.processQueryCommand(
-      this.query,
-      this.provider
-    );
+    this.data = await this.commander.query(this.query, this.provider);
 
     this.dataSource = new MatTableDataSource(this.data.rows);
 
@@ -92,10 +89,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
   async selectItem(item) {
     if (this.data.selectItemCommand != null) {
-      await this.commander.processSelectCommand(
-        this.data.selectItemCommand,
-        item
-      );
+      await this.commander.select(this.data.selectItemCommand, item);
     }
   }
 

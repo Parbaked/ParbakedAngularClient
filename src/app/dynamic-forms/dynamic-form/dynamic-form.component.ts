@@ -53,7 +53,7 @@ export class DynamicFormComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.provider = this.route.snapshot.paramMap.get('provider');
 
-    this.data = await this.commander.processLoadCommand(this.entity, this.id);
+    this.data = await this.commander.load(this.entity, this.id);
 
     console.log(this.data);
     if (this.data == null) {
@@ -75,7 +75,7 @@ export class DynamicFormComponent implements OnInit {
       if (this.data.dataChangeAction != null) {
         let obj = this.cleanData(this.data.record, val);
 
-        this.commander.processDataChangeCommand(
+        this.commander.dataChange(
           this.entity,
           this.id,
           obj,
@@ -126,11 +126,6 @@ export class DynamicFormComponent implements OnInit {
       });
     });
 
-    await this.commander.processActionCommand(
-      text,
-      this.id,
-      this.entity,
-      this.data.record
-    );
+    await this.commander.action(text, this.id, this.entity, this.data.record);
   }
 }

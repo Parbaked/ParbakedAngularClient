@@ -7,26 +7,15 @@ import { SearchResultItem } from '../dtos/search-result-item';
 import { TableData } from '../dtos/table-data';
 
 export abstract class CommanderService {
-  abstract processActionCommand(
-    text: string,
-    id?: string,
-    entity?: string,
-    record?: any
-  );
+  abstract action(text: string, id?: string, entity?: string, record?: any);
 
-  abstract processQueryCommand(
-    query: string,
-    provider: string
-  ): Promise<TableData>;
+  abstract query(query: string, provider: string): Promise<TableData>;
 
-  abstract processSelectCommand(selectItemCommand: string, item: any);
+  abstract select(selectItemCommand: string, item: any);
 
-  abstract processLoadCommand(
-    entityType: string,
-    id: string
-  ): Promise<DynamicFormData>;
+  abstract load(entityType: string, id: string): Promise<DynamicFormData>;
 
-  abstract processDataChangeCommand(
+  abstract dataChange(
     entity: string,
     id: string,
     data: any,
@@ -34,12 +23,12 @@ export abstract class CommanderService {
     text: string
   );
 
-  abstract processSelectQueryCommand(
+  abstract selectQuery(
     text: string,
     searchCommand: string
   ): Promise<SearchResult>;
 
-  abstract processDashboardQueryCommand(
+  abstract dashboardQuery(
     text: string,
     searchCommand: string
   ): Promise<DynamicDashboardData>;

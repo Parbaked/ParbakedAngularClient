@@ -17,7 +17,7 @@ import { DynamicDashboardData } from '../dtos/dynamic-dashboard-data';
 export class SimCommanderService implements CommanderService {
   constructor(private router: Router) {}
 
-  async processDashboardQueryCommand(
+  async dashboardQuery(
     text: string,
     searchCommand: string
   ): Promise<DynamicDashboardData> {
@@ -25,7 +25,7 @@ export class SimCommanderService implements CommanderService {
     return this.readFromFile(path);
   }
 
-  async processSelectQueryCommand(
+  async selectQuery(
     text: string,
     searchCommand: string
   ): Promise<SearchResult> {
@@ -33,7 +33,7 @@ export class SimCommanderService implements CommanderService {
     return this.readFromFile(path);
   }
 
-  async processDataChangeCommand(
+  async dataChange(
     entity: string,
     id: string,
     data: any,
@@ -41,32 +41,21 @@ export class SimCommanderService implements CommanderService {
     text: string
   ) {}
 
-  async processActionCommand(
-    text: string,
-    id?: string,
-    entity?: string,
-    record?: any
-  ) {
+  async action(text: string, id?: string, entity?: string, record?: any) {
     console.log('processing action command' + JSON.stringify(record));
   }
 
-  async processQueryCommand(
-    query: string,
-    provider: string = 'CACHE'
-  ): Promise<TableData> {
+  async query(query: string, provider: string = 'CACHE'): Promise<TableData> {
     const path = 'queries/' + query + '.json';
     return (await this.readFromFile(path)) as Promise<TableData>;
   }
 
-  async processSelectCommand(selectItemCommand: string, item: any) {
+  async select(selectItemCommand: string, item: any) {
     const route = '/df/' + selectItemCommand + '/' + item.id;
     this.router.navigate([route]);
   }
 
-  async processLoadCommand(
-    entityType: string,
-    id: string
-  ): Promise<DynamicFormData> {
+  async load(entityType: string, id: string): Promise<DynamicFormData> {
     const path = 'load/' + entityType + '.' + id + '.json';
     return await this.readFromFile(path);
   }
