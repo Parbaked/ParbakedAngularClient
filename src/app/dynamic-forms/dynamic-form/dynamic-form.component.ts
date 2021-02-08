@@ -105,7 +105,7 @@ export class DynamicFormComponent implements OnInit {
     return record;
   }
 
-  async action(text: string) {
+  async action(text: string, actionText: string) {
     Object.keys(this.data.record).forEach((key, index) => {
       const control = this.form.get(key);
       if (control != null) {
@@ -126,6 +126,11 @@ export class DynamicFormComponent implements OnInit {
       });
     });
 
-    await this.commander.action(text, this.id, this.entity, this.data.record);
+    await this.commander.action(
+      actionText ?? text,
+      this.id,
+      this.entity,
+      this.data.record
+    );
   }
 }

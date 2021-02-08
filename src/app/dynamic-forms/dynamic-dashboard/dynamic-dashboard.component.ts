@@ -35,10 +35,7 @@ export class DynamicDashboardComponent implements OnInit {
   async ngAfterViewInit() {
     this.query = this.route.snapshot.paramMap.get('query');
 
-    this.data = await this.commander.processDashboardQueryCommand(
-      '',
-      this.query
-    );
+    this.data = await this.commander.dashboardQuery('', this.query);
 
     if (this.data == null) {
       console.log('UNABLE TO LOAD DATA');
@@ -50,6 +47,6 @@ export class DynamicDashboardComponent implements OnInit {
   }
 
   async actionClick(text: string) {
-    await this.commander.processActionCommand(text);
+    await this.commander.action(text);
   }
 }

@@ -26,17 +26,18 @@
       [data]="data"
     ></section>
 
-    <mat-card-actions *ngIf="data.actions">
+    <div class="button-list" *ngIf="data.actions">
       <button
+        class="action-button"
         *ngFor="let a of data.actions"
-        (click)="action(a.text)"
+        (click)="action(a.text, a.actionText)"
         mat-raised-button
         color="primary"
         type="submit"
       >
         {{ a.text }}
       </button>
-    </mat-card-actions>
+    </div>
   </div>
 </div>
 <div *ngIf="!loaded" class="main-div">

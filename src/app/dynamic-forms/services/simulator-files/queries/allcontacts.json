@@ -14,6 +14,7 @@
   },
   "selectItemCommand": "contact",
   "enablePaging": true,
+  "actions": [{ "text": "Add" }],
   "rows": [
     {
       "id": 1,

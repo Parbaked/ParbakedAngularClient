@@ -77,6 +77,17 @@
       showFirstLastButtons
     ></mat-paginator>
   </div>
+  <div class="button-list" *ngIf="data.actions">
+    <button
+      *ngFor="let a of data.actions"
+      (click)="action(a.text, a.actionText)"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      {{ a.text }}
+    </button>
+  </div>
 </div>
 <div *ngIf="!loaded" class="main-div">
   <mat-spinner class="progress-spinner"></mat-spinner>
