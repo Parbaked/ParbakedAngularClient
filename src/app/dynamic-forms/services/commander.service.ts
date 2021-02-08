@@ -19,10 +19,7 @@ export abstract class CommanderService {
     provider: string
   ): Promise<TableData>;
 
-  abstract processSelectCommand(
-    selectItemCommand: string,
-    item: any
-  ): Promise<FormData>;
+  abstract processSelectCommand(selectItemCommand: string, item: any);
 
   abstract processLoadCommand(
     entityType: string,

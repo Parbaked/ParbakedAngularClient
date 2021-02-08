@@ -21,26 +21,16 @@ export class SimCommanderService implements CommanderService {
     text: string,
     searchCommand: string
   ): Promise<DynamicDashboardData> {
-    return (
-      await this.processCommand({
-        text: text,
-        query: searchCommand,
-        commandType: 'DASHBOARDQUERY',
-      })
-    ).data;
+    const path = 'dashboardquery/' + searchCommand + '.json';
+    return this.readFromFile(path);
   }
 
   async processSelectQueryCommand(
     text: string,
     searchCommand: string
   ): Promise<SearchResult> {
-    return (
-      await this.processCommand({
-        text: text,
-        query: searchCommand,
-        commandType: 'SELECTQUERY',
-      })
-    ).data;
+    const path = 'selectquery/' + searchCommand + '.json';
+    return this.readFromFile(path);
   }
 
   async processDataChangeCommand(
@@ -68,38 +58,21 @@ export class SimCommanderService implements CommanderService {
     query: string,
     provider: string = 'CACHE'
   ): Promise<TableData> {
-    return (
-      await this.processCommand({
-        commandType: 'QUERY',
-        query: query,
-      })
-    ).data;
+    const path = 'queries/' + query + '.json';
+    return (await this.readFromFile(path)) as Promise<TableData>;
   }
 
-  async processSelectCommand(
-    selectItemCommand: string,
-    item: any
-  ): Promise<FormData> {
-    return (
-      await this.processCommand({
-        commandType: 'SELECT',
-        text: selectItemCommand,
-        data: item,
-      })
-    ).data;
+  async processSelectCommand(selectItemCommand: string, item: any) {
+    const route = '/df/' + selectItemCommand + '/' + item.id;
+    this.router.navigate([route]);
   }
 
   async processLoadCommand(
     entityType: string,
     id: string
   ): Promise<DynamicFormData> {
-    return (
-      await this.processCommand({
-        commandType: 'LOAD',
-        text: entityType,
-        id: id,
-      })
-    ).data;
+    const path = 'load/' + entityType + '.' + id + '.json';
+    return await this.readFromFile(path);
   }
 
   async processCommand(command: RequestCommand): Promise<ResponseCommand> {
@@ -148,8 +121,6 @@ export class SimCommanderService implements CommanderService {
         return await this.queryCommand(command);
       case 'select':
         return await this.selectCommand(command);
-      case 'load':
-        return await this.loadCommand(command);
     }
   }
 
@@ -194,17 +165,6 @@ export class SimCommanderService implements CommanderService {
     };
   }
 
-  private async query(queryName: string): Promise<TableData> {
-    let json = '';
-
-    await import('./simulator-files/queries/' + queryName + '.json').then(
-      (data) => {
-        json = data;
-      }
-    );
-    return (json as unknown) as TableData;
-  }
-
   private async selectCommand(
     command: RequestCommand
   ): Promise<ResponseCommand> {
@@ -218,19 +178,9 @@ export class SimCommanderService implements CommanderService {
     };
   }
 
-  private async loadCommand(command: RequestCommand): Promise<ResponseCommand> {
-    const path = 'load/' + command.text + '.' + command.id + '.json';
-    return {
-      guid: command.guid,
-      title: command.text,
-      data: await this.readFromFile(path),
-      route: null,
-    };
-  }
-
-  private async readFromFile(path: string): Promise<DynamicFormData> {
+  private async readFromFile(path: string): Promise<any> {
     const time = Math.floor(Math.random() * 400) + 100;
-    var promise = new Promise<DynamicFormData>(async (success, failure) => {
+    var promise = new Promise<any>(async (success, failure) => {
       setTimeout(async () => {
         await import('./simulator-files/' + path).then((data) => {
           success(data);
