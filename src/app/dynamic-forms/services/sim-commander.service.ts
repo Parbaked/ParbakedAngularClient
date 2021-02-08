@@ -164,41 +164,23 @@ export class SimCommanderService implements CommanderService {
   private async dashboardQueryCommand(
     command: RequestCommand
   ): Promise<ResponseCommand> {
+    const path = 'dashboardquery/' + command.query + '.json';
     return {
       guid: command.guid,
       title: 'dashboard',
-      data: await this.dashboardQuery(command.query),
+      data: await this.readFromFile(path),
     };
-  }
-
-  private async dashboardQuery(queryName: string): Promise<TableData> {
-    let json = '';
-    await import(
-      './simulator-files/dashboardquery/' + queryName + '.json'
-    ).then((data) => {
-      json = data;
-    });
-    return (json as unknown) as TableData;
   }
 
   private async selectQueryCommand(
     command: RequestCommand
   ): Promise<ResponseCommand> {
+    const path = 'selectquery/' + command.query + '.json';
     return {
       guid: command.guid,
       title: 'Contacts',
-      data: await this.selectQuery(command.query),
+      data: await this.readFromFile(path),
     };
-  }
-
-  private async selectQuery(queryName: string): Promise<TableData> {
-    let json = '';
-    await import('./simulator-files/selectquery/' + queryName + '.json').then(
-      (data) => {
-        json = data;
-      }
-    );
-    return (json as unknown) as TableData;
   }
 
   private async queryCommand(

@@ -58,3 +58,10 @@
 .card-col:last-child {
   margin-right: 0;
 }
+
+.progress-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
