@@ -44,7 +44,5 @@ export abstract class CommanderService {
     searchCommand: string
   ): Promise<DynamicDashboardData>;
 
-  abstract processCommand(command: RequestCommand): Promise<ResponseCommand>;
-
   abstract currentMenu();
 }

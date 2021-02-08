@@ -47,11 +47,7 @@ export class SimCommanderService implements CommanderService {
     entity?: string,
     record?: any
   ) {
-    this.processCommand({
-      commandType: 'ACTION',
-      data: record,
-      text: text,
-    });
+    console.log('processing action command' + JSON.stringify(record));
   }
 
   async processQueryCommand(
@@ -75,27 +71,6 @@ export class SimCommanderService implements CommanderService {
     return await this.readFromFile(path);
   }
 
-  async processCommand(command: RequestCommand): Promise<ResponseCommand> {
-    const jsonIn = JSON.stringify(command);
-    console.log(jsonIn);
-
-    command.guid = uuidv4();
-    let response = await this.internalProcessCommand(command);
-    if (response == null) {
-      response = {
-        guid: command.guid,
-        title: 'NO RESPONSE',
-        data: null,
-      };
-    }
-
-    if (response.route) {
-      this.router.navigate([response.route]);
-    }
-
-    return response;
-  }
-
   currentMenu() {
     return [
       {
@@ -109,72 +84,11 @@ export class SimCommanderService implements CommanderService {
     ];
   }
 
-  private async internalProcessCommand(
-    command: RequestCommand
-  ): Promise<ResponseCommand> {
-    switch (command.commandType.toLowerCase()) {
-      case 'dashboardquery':
-        return this.dashboardQueryCommand(command);
-      case 'selectquery':
-        return this.selectQueryCommand(command);
-      case 'query':
-        return await this.queryCommand(command);
-      case 'select':
-        return await this.selectCommand(command);
-    }
-  }
-
   private startCommand(command: RequestCommand): ResponseCommand {
     return {
       guid: command.guid,
       route: 'dt/contacts/allcontacts',
       title: 'Contacts',
-    };
-  }
-
-  private async dashboardQueryCommand(
-    command: RequestCommand
-  ): Promise<ResponseCommand> {
-    const path = 'dashboardquery/' + command.query + '.json';
-    return {
-      guid: command.guid,
-      title: 'dashboard',
-      data: await this.readFromFile(path),
-    };
-  }
-
-  private async selectQueryCommand(
-    command: RequestCommand
-  ): Promise<ResponseCommand> {
-    const path = 'selectquery/' + command.query + '.json';
-    return {
-      guid: command.guid,
-      title: 'Contacts',
-      data: await this.readFromFile(path),
-    };
-  }
-
-  private async queryCommand(
-    command: RequestCommand
-  ): Promise<ResponseCommand> {
-    const path = 'queries/' + command.query + '.json';
-    return {
-      guid: command.guid,
-      title: 'Contacts',
-      data: await this.readFromFile(path),
-    };
-  }
-
-  private async selectCommand(
-    command: RequestCommand
-  ): Promise<ResponseCommand> {
-    return {
-      guid: command.guid,
-      title: command.text + command.data.name,
-      route: '/df/' + command.text + '/' + command.data.id,
-      data: {
-        title: 'Edit ' + command.text,
-      },
     };
   }
 
