@@ -30,7 +30,7 @@ export class SelectDialogComponent implements OnInit {
 
   onChange($event) {
     this.commander
-      .processSelectQueryCommand(this.searchText, this.searchCommand)
+      .selectQuery(this.searchText, this.searchCommand)
       .then((result) => {
         this.items = [];
         result.items.forEach((item) => {

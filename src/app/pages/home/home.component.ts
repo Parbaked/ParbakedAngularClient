@@ -13,10 +13,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   async ngAfterViewInit() {
-    await this.commander.processCommand({
-      guid: uuidv4(),
-      text: 'START',
-      commandType: 'START',
-    });
+    await this.commander.start();
   }
 }

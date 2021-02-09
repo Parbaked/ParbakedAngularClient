@@ -4,11 +4,15 @@
   "cardlayout": {
     "titleDatafield": "name",
     "rows": [
-      [{ "dataField": "address", "displayType": "text" }],
+      [{ "label": "Address", "dataField": "address", "displayType": "text" }],
       [
-        { "dataField": "city", "displayType": "text" },
-        { "dataField": "state", "displayType": "text" },
-        { "dataField": "postalCode", "displayType": "text" }
+        { "label": "City", "dataField": "city", "displayType": "text" },
+        { "label": "State", "dataField": "state", "displayType": "text" },
+        {
+          "label": "PostCode",
+          "dataField": "postalCode",
+          "displayType": "text"
+        }
       ]
     ]
   },

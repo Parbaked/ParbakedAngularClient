@@ -33,5 +33,7 @@ export abstract class CommanderService {
     searchCommand: string
   ): Promise<DynamicDashboardData>;
 
+  abstract start();
+
   abstract currentMenu();
 }

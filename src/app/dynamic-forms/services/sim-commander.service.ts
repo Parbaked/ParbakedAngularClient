@@ -17,6 +17,10 @@ import { DynamicDashboardData } from '../dtos/dynamic-dashboard-data';
 export class SimCommanderService implements CommanderService {
   constructor(private router: Router) {}
 
+  start() {
+    this.router.navigate(['/dt/contacts/allcontacts']);
+  }
+
   async dashboardQuery(
     text: string,
     searchCommand: string
