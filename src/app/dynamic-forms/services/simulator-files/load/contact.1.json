@@ -30,6 +30,24 @@
               "columns": [
                 {
                   "control": {
+                    "dataField": "birthdate",
+                    "label": "Birthdate",
+                    "inputType": "date"
+                  }
+                },
+                {
+                  "control": {
+                    "dataField": "lastContactDate",
+                    "label": "Last Contact Date",
+                    "inputType": "date"
+                  }
+                }
+              ]
+            },
+            {
+              "columns": [
+                {
+                  "control": {
                     "dataField": "email",
                     "label": "Email",
                     "inputType": "email"
@@ -211,6 +229,8 @@
     "id": 1,
     "first": "Russ",
     "last": "Smith",
+    "birthdate": "2018-12-10T13:45:00.000Z",
+    "lastContactDate": "2018-12-11T13:45:00.000Z",
     "phone": "123-456-7890",
     "email": "bob@example.com",
     "address": "123 Main St",

@@ -9,6 +9,7 @@
         *ngSwitchCase="column.control.inputType == 'text'"
         class="full-width"
       >
+        <mat-label>{{ column.control.label }}</mat-label>
         <input
           matInput
           readonly="{{ column.control.readonly == true }}"
@@ -22,6 +23,7 @@
         *ngSwitchCase="column.control.inputType == 'phone'"
         class="full-width"
       >
+        <mat-label>{{ column.control.label }}</mat-label>
         <input
           matInput
           readonly="{{ column.control.readonly == true }}"
@@ -37,6 +39,7 @@
         *ngSwitchCase="column.control.inputType == 'email'"
         class="full-width"
       >
+        <mat-label>{{ column.control.label }}</mat-label>
         <input
           type="email"
           matInput
@@ -46,6 +49,22 @@
           aria-label="{{ column.control.label }}"
         />
         <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field
+        class="full-width"
+        *ngSwitchCase="column.control.inputType == 'date'"
+      >
+        <mat-label>{{ column.control.label }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="{{ column.control.label }}"
+          formControlName="{{ column.control.dataField }}"
+          aria-label="{{ column.control.label }}"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field

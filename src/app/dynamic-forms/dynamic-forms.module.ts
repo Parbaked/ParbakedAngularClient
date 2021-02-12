@@ -9,7 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MatFormFieldModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
@@ -34,7 +37,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DynamicDashboardComponent } from './dynamic-dashboard/dynamic-dashboard.component';
@@ -59,7 +62,10 @@ import { SectionComponent } from './controls/section.component';
     //   provide: ErrorHandler,
     //   useClass: GlobalErrorHandler,
     // },
-    Title,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'fill' },
+    },
   ],
   declarations: [
     DynamicTableComponent,

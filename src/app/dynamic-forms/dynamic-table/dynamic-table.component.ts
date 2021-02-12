@@ -88,7 +88,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   }
 
   async selectItem(item) {
-    if (this.data.selectItemCommand != null) {
+    if (
+      this.data.selectItemCommand != null &&
+      this.data.selectItemCommand != ''
+    ) {
       await this.commander.select(this.data.selectItemCommand, item);
     }
   }
@@ -100,5 +103,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
   async action(text: string, actionText: string) {
     await this.commander.action(actionText, null, null, null);
+  }
+
+  async columnAction(text: string, actionText: string, row: any) {
+    console.log(row);
+    await this.commander.action(actionText, null, null, row);
   }
 }
