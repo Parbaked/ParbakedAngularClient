@@ -199,7 +199,25 @@
     },
     {
       "title": "Notes",
-      "sections": []
+      "sections": [
+        {
+          "sectionTitle": "Personal Information",
+          "sectionType": "fields",
+          "rows": [
+            {
+              "columns": [
+                {
+                  "control": {
+                    "dataField": "notes",
+                    "label": "Notes",
+                    "inputType": "text"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "lists": {
@@ -240,6 +258,7 @@
     "contactPreference": [["email", "phone", "sms"]],
     "lastContact": "week",
     "sex": "male",
+    "notes": "a note",
     "contactLinks": [
       {
         "id": 2,
