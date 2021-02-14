@@ -19,6 +19,17 @@
         />
       </mat-form-field>
 
+      <span *ngSwitchCase="column.control.inputType == 'richtext'">
+        <mat-label>{{ column.control.label }}</mat-label>
+        <angular-editor
+          readonly="{{ column.control.readonly == true }}"
+          placeholder="{{ column.control.label }}"
+          formControlName="{{ column.control.dataField }}"
+          aria-label="{{ column.control.label }}"
+          [config]="editorConfig"
+        ></angular-editor>
+      </span>
+
       <mat-form-field
         *ngSwitchCase="column.control.inputType == 'phone'"
         class="full-width"

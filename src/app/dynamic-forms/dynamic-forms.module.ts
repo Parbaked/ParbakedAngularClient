@@ -54,6 +54,9 @@ import { GlobalErrorHandler } from './GlobalErrorHandler';
 import { FieldSectionComponent } from './controls/field-section.component';
 import { LinkSectionComponent } from './controls/link-section.component';
 import { SectionComponent } from './controls/section.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   providers: [
@@ -79,6 +82,7 @@ import { SectionComponent } from './controls/section.component';
     SectionComponent,
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     DynamicRoutingModule,
     FormsModule,
@@ -117,6 +121,7 @@ import { SectionComponent } from './controls/section.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    AngularEditorModule,
   ],
 })
 export class DynamicFormsModule {}

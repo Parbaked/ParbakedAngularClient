@@ -210,7 +210,7 @@
                   "control": {
                     "dataField": "notes",
                     "label": "Notes",
-                    "inputType": "text"
+                    "inputType": "richtext"
                   }
                 }
               ]
